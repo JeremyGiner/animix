@@ -1,0 +1,35 @@
+
+#_______________________________________________________________________________
+# Test
+-cp src
+-cp vendor
+-lib orm
+
+--resource config/ability.json@config_ability
+--resource config/move_impl.json@move
+--resource config/mon.json@config_mon
+
+-main mon_calc.Main
+#-debug
+
+-hl bin/hl/mon_calc.hl
+
+--next
+
+#_______________________________________________________________________________
+# 
+
+-cp src
+-cp vendor
+-lib orm
+
+--resource config/ability.json@config_ability
+--resource config/move_impl.json@move
+--resource config/mon.json@config_mon
+
+-main mon_calc.Main
+#-debug
+
+-js bin/js/mon_calc.js
+
+

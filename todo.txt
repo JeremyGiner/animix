@@ -1,0 +1,53 @@
+
+
+Mon calc
+
+
+- must turn to stack process because :
+	- promtAction on TapOut
+- cannot copy aspect context
+
+state machine
+
+- get player choice
+- execute swich action
+- on turn start
+	- trigger event (prompt player/chance)
+- execute attack action
+	-
+- on end turn
+	- trigger event (prompt player/chance)
+
+
+
+
+
+
+
+
+Animix
+
+range melee
+percing, blunt, slash
+resistance, flexibility, armor
+
+switch in ability
+- heal ~10%
+- inflic status
+- reveal stats
+
+attack 
+	protect/counter
+	damage
+	force switch
+	2 turn attack
+	status
+		burning (can't heal)
+		dazed
+		trapped - prevent switching
+
+training mini game
+	- frogger
+	- tetris
+
+customize battle cry
