@@ -14,7 +14,7 @@ class Rest extends AAspect {
 	override function onAttack( oContext :ThisContext, oEvent :MoveContext ) {
 		var oMon = oEvent.mon_att;
 
-		var oPrev = oMon.getAspectByClass(AMainStatus);
+		var oPrev = oMon.getAspectOneByClass(AMainStatus);
 		if( oPrev != null ) 
 			oContext.processor.removeAspect( oMon, oPrev, this );
 

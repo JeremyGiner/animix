@@ -19,7 +19,7 @@ class AntiFreeze extends AAspect {
 		if( oContext.owner != oEvent.mon_att ) return;
 
 		// Only if self is Frozen
-		var oFreeze = oContext.owner.getAspectByClass(Freeze);
+		var oFreeze = oContext.owner.getAspectOneByClass(Freeze);
 		if( oFreeze == null ) return;
 		
 		oContext.processor.removeAspect( oContext.owner, oFreeze, this );
@@ -31,7 +31,7 @@ class AntiFreeze extends AAspect {
 		if( oContext.owner != oEvent.mon_att ) return;
 
 		// Only if target is Frozen
-		var oFreeze = oEvent.target.getAspectByClass(Freeze);
+		var oFreeze = oEvent.target.getAspectOneByClass(Freeze);
 		if( oFreeze == null ) return;
 
 

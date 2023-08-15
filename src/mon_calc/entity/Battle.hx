@@ -1,11 +1,8 @@
 package mon_calc.entity;
 
 // import mon_calc.core.process.MonActionProcess;
-import mon_calc.ds.EEventType;
-import mon_calc.ds.PairAspectContext;
-import mon_calc.core.IProcess;
-import stdlib.Serializer;
-import stdlib.Unserializer;
+import haxe.Serializer;
+import haxe.Unserializer;
 import mon_calc.aspect.core.AAspectBearer;
 
 class Battle extends AAspectBearer {

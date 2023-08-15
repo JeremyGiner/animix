@@ -1,0 +1,17 @@
+
+-cp src
+
+# haxelib git sweet.functor https://github.com/JeremyGiner/sweet_functor.git 
+-lib sweet.functor:git:https://github.com/JeremyGiner/sweet_functor.git
+-main animix_client_js.Main
+#-debug
+
+-r src\animix_client_js\template\form\input_base.html@form.input_base
+-r src\animix_client_js\template\form\input_aspect.html@form.input_aspect
+-r src\animix_client_js\template\form\input_aspect_item.html@form.input_listaspect_item
+-r src\animix_client_js\template\form\form_base.html@form.form_base
+
+
+-js bin/js/animix.js
+
+

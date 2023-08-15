@@ -1,0 +1,18 @@
+<div class="mb-3" data-dyn-tpl="::uid::">
+    <div class="form-label">::label::</div>
+    ::if action_option_list::
+    <div>
+        <select data-inputaspect-select-action>
+            ::foreach action_option_list::
+            <option value="::value::">::label::</option>
+            ::end::
+        </select>
+        <button class="btn btn-success" type="button" 
+            onclick="Client.getClientChild(::uid::).addAction(this)"
+        >
+            Add action
+        </button>
+    </div>
+    ::end::
+    <div class="pr-3" data-action-list></div>
+</div>

@@ -7,8 +7,6 @@ package mon_calc.core;
 // import mon_calc.core.process.DoMoveProcess;
 import mon_calc.action.MonForcedAction;
 import mon_calc.exception.VictoryException;
-import stdlib.Unserializer;
-import haxe.Serializer;
 import mon_calc.ds.event.SwitchOutContext;
 import mon_calc.ds.event.SwitchInContext;
 import mon_calc.ds.event.AffinityContext;
@@ -190,7 +188,7 @@ class BattleProcessor {
 	public function addAspect( oTarget :IAspectBearer, oAspect :IAspect, oSourceMon :Mon, oSource :IAspect) {
 		
 		var bIsStackacle = Std.isOfType( oAspect, IStackable );
-		var oPrev = oTarget.getAspectByClass( oAspect.getMainClass() );
+		var oPrev = oTarget.getAspectOneByClass( oAspect.getMainClass() );
 
 		// Case : 2 aspect unstackable
 		if( !bIsStackacle && oPrev != null ) return;

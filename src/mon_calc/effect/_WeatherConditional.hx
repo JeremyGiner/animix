@@ -21,6 +21,6 @@ class WeatherConditional extends AConditional {
 	}
 
 	override public function validateCondition( oContext :ThisContext, oEvent :MoveContext ) {
-		return oContext.battle.getAspectByClass( _oWeather ) != null;
+		return oContext.battle.getAspectOneByClass( _oWeather ) != null;
 	}
 }

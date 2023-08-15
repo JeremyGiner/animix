@@ -27,7 +27,7 @@ class AspectRemover extends AAspect {
 	override function onAttack( oContext :ThisContext, oEvent :MoveContext ) {
 		var oTarget = _getTarget( oContext, oEvent );
 		for( oClass in _aClass ) {
-			var oAspect = oTarget.getAspectByClass( oClass );
+			var oAspect = oTarget.getAspectOneByClass( oClass );
 			if( oAspect == null ) continue;
 			oContext.processor.removeAspect( oTarget, oAspect, this );
 		}

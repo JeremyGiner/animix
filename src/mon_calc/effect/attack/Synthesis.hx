@@ -27,7 +27,7 @@ class Synthesis extends AAspect {
 	}
 
 	private function _getPercent( oBattle :Battle ) {
-		var oWeather = oBattle.getAspectByClass(AWeather);
+		var oWeather = oBattle.getAspectOneByClass(AWeather);
 		if( oWeather == null ) return 1/2;
 		if( Std.isOfType( oWeather, Sunny ) ) return 2/3;
 		return 1/4;

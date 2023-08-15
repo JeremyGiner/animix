@@ -19,7 +19,7 @@ class WheaterBall extends AAspect {
 
 	override function onMoveCalc(oContext:ThisContext, oEvent:MoveCalcContext) {
 
-		var oWeather = oContext.battle.getAspectByClass(AWeather);
+		var oWeather = oContext.battle.getAspectOneByClass(AWeather);
 		if( oWeather == null ) return;
 
 		var oWeatherClass = Type.getClass( oWeather );

@@ -1,7 +1,7 @@
 package mon_calc.entity;
 
-import stdlib.Serializer;
-import stdlib.Unserializer;
+import haxe.Serializer;
+import haxe.Unserializer;
 import mon_calc.ds.event.EventContext;
 import mon_calc.aspect.core.AAspectBearer;
 import mon_calc.battle_aspect.IAspect;
