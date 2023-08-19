@@ -1,10 +1,9 @@
 package animix.entity;
 
+import animix.ds.ETargetType;
 import mon_calc.core.aspect.IAspect;
 import mon_calc.core.aspect.AAspectBearer;
-import mon_calc.ds.ETargetType;
 import mon_calc.tool.IValidator;
-import mon_calc.core.effect.IEffect;
 import animix.ds.EMovePriority;
 import animix.ds.EDamageElement;
 

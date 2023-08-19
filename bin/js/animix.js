@@ -925,7 +925,7 @@ animix_entity_Team.prototype = $extend(mon_$calc_core_aspect_AAspectBearer.proto
 });
 var animix_$client_$js_Main = function() {
 	this._oClient = new animix_$client_$js_client_Client();
-	var oForm = new animix_$client_$js_client_form_FormMoveCreation();
+	var oForm = new animix_$client_$js_client_form_FormMatchCreation();
 	this._oClient.renderDyna(oForm);
 };
 $hxClasses["animix_client_js.Main"] = animix_$client_$js_Main;
@@ -2066,6 +2066,7 @@ animix_$client_$js_client_form_IViewComposite.prototype = {
 };
 var animix_$client_$js_client_form_AViewComposite = function(a) {
 	animix_$client_$js_client_form_AView.call(this);
+	this._child = a;
 	var _g = 0;
 	while(_g < a.length) {
 		var el = a[_g];
@@ -2082,6 +2083,27 @@ animix_$client_$js_client_form_AViewComposite.prototype = $extend(animix_$client
 		return this._dom.querySelector("[data-client-id=\"" + uid + "\"]").hxComponent;
 	}
 	,__class__: animix_$client_$js_client_form_AViewComposite
+});
+var animix_$client_$js_client_form_FormAniCreation = function() {
+	animix_$client_$js_client_form_AViewComposite.call(this,[this._oLabel = new animix_$client_$js_client_form_Input("Name","label"),this._oElement0 = new animix_$client_$js_client_form_InputSelectElement("Primary element","element0"),this._oElement1 = new animix_$client_$js_client_form_InputSelectElement("Secondary element","element1"),this._oAvatar = new animix_$client_$js_client_form_InputAniAvatar(),this._oMove0 = new animix_$client_$js_client_form_FormMoveCreation(),this._oMove1 = new animix_$client_$js_client_form_FormMoveCreation(),this._oMove2 = new animix_$client_$js_client_form_FormMoveCreation(),this._oMove3 = new animix_$client_$js_client_form_FormMoveCreation()]);
+};
+$hxClasses["animix_client_js.client.form.FormAniCreation"] = animix_$client_$js_client_form_FormAniCreation;
+animix_$client_$js_client_form_FormAniCreation.__name__ = "animix_client_js.client.form.FormAniCreation";
+animix_$client_$js_client_form_FormAniCreation.__interfaces__ = [animix_$client_$js_client_form_IForm];
+animix_$client_$js_client_form_FormAniCreation.__super__ = animix_$client_$js_client_form_AViewComposite;
+animix_$client_$js_client_form_FormAniCreation.prototype = $extend(animix_$client_$js_client_form_AViewComposite.prototype,{
+	getValue: function() {
+		var tmp = this._oLabel.getValue();
+		var tmp1 = this._oLabel.getValue();
+		var _g = new haxe_ds_IntMap();
+		_g.set(0,10);
+		_g.set(2,10);
+		_g.set(5,10);
+		_g.set(4,10);
+		_g.set(7,10);
+		return new animix_entity_Ani(tmp,new animix_entity_AniType(0,tmp1,_g,this._oElement0.getValue(),this._oElement1.getValue(),[],[],[]),0,[this._oMove0.getValue(),this._oMove1.getValue(),this._oMove2.getValue(),this._oMove3.getValue()]);
+	}
+	,__class__: animix_$client_$js_client_form_FormAniCreation
 });
 var animix_$client_$js_client_form_FormAspectApplier = function() {
 	var tmp = new animix_$client_$js_client_form_InputRange("Turn","turn",0,5);
@@ -2102,13 +2124,7 @@ animix_$client_$js_client_form_FormAspectApplier.prototype = $extend(animix_$cli
 });
 var animix_$client_$js_client_form_FormAttack = function() {
 	this._oRange = new animix_$client_$js_client_form_InputRange("Damage","damage",0,100);
-	var _g = new haxe_ds_StringMap();
-	_g.h["fire"] = "Fire";
-	_g.h["water"] = "Water";
-	_g.h["air"] = "Air";
-	_g.h["earth"] = "Earth";
-	_g.h["electric"] = "Electric";
-	this._oElement = new animix_$client_$js_client_form_InputSelect("Element","element",_g);
+	this._oElement = new animix_$client_$js_client_form_InputSelectElement("Element","element");
 	var _g = new haxe_ds_StringMap();
 	_g.h["physique"] = "Physique";
 	_g.h["magic"] = "Magic";
@@ -2121,22 +2137,7 @@ animix_$client_$js_client_form_FormAttack.__interfaces__ = [animix_$client_$js_c
 animix_$client_$js_client_form_FormAttack.__super__ = animix_$client_$js_client_form_AViewComposite;
 animix_$client_$js_client_form_FormAttack.prototype = $extend(animix_$client_$js_client_form_AViewComposite.prototype,{
 	getValue: function() {
-		return new animix_aspect_MoveDamage(this._oRange.getValueInt(),this._resolveElement(this._oElement.getValue()),this._resolveType(this._oType.getValue()),[]);
-	}
-	,_resolveElement: function(s) {
-		switch(s) {
-		case "air":
-			return 3;
-		case "earth":
-			return 4;
-		case "electric":
-			return 5;
-		case "fire":
-			return 2;
-		case "water":
-			return 1;
-		}
-		throw haxe_Exception.thrown("invalid " + s);
+		return new animix_aspect_MoveDamage(this._oRange.getValueInt(),this._oElement.getValue(),this._resolveType(this._oType.getValue()),[]);
 	}
 	,_resolveType: function(s) {
 		switch(s) {
@@ -2149,14 +2150,46 @@ animix_$client_$js_client_form_FormAttack.prototype = $extend(animix_$client_$js
 	}
 	,__class__: animix_$client_$js_client_form_FormAttack
 });
+var animix_$client_$js_client_form_FormMatchCreation = function() {
+	animix_$client_$js_client_form_AViewComposite.call(this,[this.oInputTeamRed = new animix_$client_$js_client_form_FormTeamCreation("Red"),this.oInputTeamBlue = new animix_$client_$js_client_form_FormTeamCreation("Blue")]);
+};
+$hxClasses["animix_client_js.client.form.FormMatchCreation"] = animix_$client_$js_client_form_FormMatchCreation;
+animix_$client_$js_client_form_FormMatchCreation.__name__ = "animix_client_js.client.form.FormMatchCreation";
+animix_$client_$js_client_form_FormMatchCreation.__interfaces__ = [animix_$client_$js_client_form_IForm];
+animix_$client_$js_client_form_FormMatchCreation.__super__ = animix_$client_$js_client_form_AViewComposite;
+animix_$client_$js_client_form_FormMatchCreation.prototype = $extend(animix_$client_$js_client_form_AViewComposite.prototype,{
+	getValue: function() {
+		return new animix_entity_Battle(this.oInputTeamRed.getValue(),this.oInputTeamBlue.getValue());
+	}
+	,__class__: animix_$client_$js_client_form_FormMatchCreation
+});
 var animix_$client_$js_client_form_FormMoveCreation = function() {
-	animix_$client_$js_client_form_AViewComposite.call(this,[new animix_$client_$js_client_form_Input("Move label","label"),new animix_$client_$js_client_form_Input("Move element","element"),new animix_$client_$js_client_form_InputAspectList("Effect")]);
+	animix_$client_$js_client_form_AViewComposite.call(this,[new animix_$client_$js_client_form_Input("Move label","label"),new animix_$client_$js_client_form_InputSelectElement("Move element","element"),new animix_$client_$js_client_form_InputAspectList("Effect")]);
 };
 $hxClasses["animix_client_js.client.form.FormMoveCreation"] = animix_$client_$js_client_form_FormMoveCreation;
 animix_$client_$js_client_form_FormMoveCreation.__name__ = "animix_client_js.client.form.FormMoveCreation";
+animix_$client_$js_client_form_FormMoveCreation.__interfaces__ = [animix_$client_$js_client_form_IForm];
 animix_$client_$js_client_form_FormMoveCreation.__super__ = animix_$client_$js_client_form_AViewComposite;
 animix_$client_$js_client_form_FormMoveCreation.prototype = $extend(animix_$client_$js_client_form_AViewComposite.prototype,{
-	__class__: animix_$client_$js_client_form_FormMoveCreation
+	getValue: function() {
+		return new animix_entity_Move("__",this._oLabel.getValue(),this._oElement.getValue(),1,this._oAspect.getValue(),0,null);
+	}
+	,__class__: animix_$client_$js_client_form_FormMoveCreation
+});
+var animix_$client_$js_client_form_FormTeamCreation = function(defaultLabel) {
+	var _g = new haxe_ds_StringMap();
+	_g.h["value"] = defaultLabel;
+	animix_$client_$js_client_form_AViewComposite.call(this,[this._oLabel = new animix_$client_$js_client_form_Input("Name","label",_g),this._oAni0 = new animix_$client_$js_client_form_FormAniCreation(),this._oAni1 = new animix_$client_$js_client_form_FormAniCreation(),this._oAni2 = new animix_$client_$js_client_form_FormAniCreation()]);
+};
+$hxClasses["animix_client_js.client.form.FormTeamCreation"] = animix_$client_$js_client_form_FormTeamCreation;
+animix_$client_$js_client_form_FormTeamCreation.__name__ = "animix_client_js.client.form.FormTeamCreation";
+animix_$client_$js_client_form_FormTeamCreation.__interfaces__ = [animix_$client_$js_client_form_IForm];
+animix_$client_$js_client_form_FormTeamCreation.__super__ = animix_$client_$js_client_form_AViewComposite;
+animix_$client_$js_client_form_FormTeamCreation.prototype = $extend(animix_$client_$js_client_form_AViewComposite.prototype,{
+	getValue: function() {
+		return new animix_entity_Team(this._oLabel.getValue(),[this._oAni0.getValue(),this._oAni1.getValue(),this._oAni2.getValue()]);
+	}
+	,__class__: animix_$client_$js_client_form_FormTeamCreation
 });
 var animix_$client_$js_client_form_Input = function(label,name,attr,tag) {
 	animix_$client_$js_client_form_AInput.call(this,label,name,attr,tag);
@@ -2166,6 +2199,62 @@ animix_$client_$js_client_form_Input.__name__ = "animix_client_js.client.form.In
 animix_$client_$js_client_form_Input.__super__ = animix_$client_$js_client_form_AInput;
 animix_$client_$js_client_form_Input.prototype = $extend(animix_$client_$js_client_form_AInput.prototype,{
 	__class__: animix_$client_$js_client_form_Input
+});
+var animix_$client_$js_client_form_InputAniAvatar = function() {
+	var _gthis = this;
+	this._drag = null;
+	animix_$client_$js_client_form_AView.call(this,"div");
+	this._dom.classList.add("input-ani-avatar");
+	var s = "\r\n            <input type=\"file\" data-input-avatar />\r\n            <div class=\"bg-checkboard wrapper-img-preview\" data-wrapper-preview style=\"display: none\">\r\n                <img class=\"img-fluid\" src=\"\" alt=\"\" data-img-preview />\r\n                <div data-marker-eye-0 style=\"top:10%;left:10%\"></div>\r\n                <div data-marker-eye-1 style=\"top:10%;left:70%\"></div>\r\n            </div>\r\n\t\t\t<style>\r\n\t\t\t\t.input-ani-avatar {\r\n\t\t\t\t\tposition: relative;\r\n\t\t\t\t}\r\n\r\n\t\t\t\t[data-marker-eye-0],\r\n\t\t\t\t[data-marker-eye-1] {\r\n\t\t\t\t\tposition: absolute; \r\n\r\n\t\t\t\t\tborder: 1px solid red;\r\n\t\t\t\t\twidth: 10%;\r\n\t\t\t\t\theight: 10%;\r\n\t\t\t\t\tbackground-color: white;\r\n\r\n\t\t\t\t\tcursor: move;\r\n\t\t\t\t}\r\n\r\n\t\t\t\t.bg-checkboard{\r\n\t\t\t\t\tbackground-size: 40px 40px;\r\n\t\t\t\t\tbackground-image: radial-gradient(circle, #000000 1px, rgba(0, 0, 0, 0) 1px);\r\n\t\t\t\t}\r\n\t\t\t</style>\r\n        ";
+	this._dom.innerHTML = s;
+	var wrapper = this._dom.querySelector("[data-wrapper-preview]");
+	var marker_eye_0 = this._dom.querySelector("[data-marker-eye-0]");
+	var marker_eye_1 = this._dom.querySelector("[data-marker-eye-1]");
+	this._dom.querySelector("[data-input-avatar]").addEventListener("change",function(event) {
+		var target = event.target;
+		var file = target.files.item(0);
+		if(file == null) {
+			return;
+		}
+		var img = window.document.querySelector("[data-img-preview]");
+		img.src = URL.createObjectURL(file);
+		img.dispatchEvent(new Event("inputfile-preview",{ target : img, input : target, bubbles : true}));
+		wrapper.style.display = "";
+	});
+	marker_eye_0.addEventListener("mousedown",function() {
+		return _gthis._drag = marker_eye_0;
+	});
+	marker_eye_1.addEventListener("mousedown",function() {
+		return _gthis._drag = marker_eye_1;
+	});
+	marker_eye_0.addEventListener("mouseup",$bind(this,this.dragStop));
+	marker_eye_1.addEventListener("mouseup",$bind(this,this.dragStop));
+	window.document.addEventListener("mousemove",$bind(this,this.dragMove));
+};
+$hxClasses["animix_client_js.client.form.InputAniAvatar"] = animix_$client_$js_client_form_InputAniAvatar;
+animix_$client_$js_client_form_InputAniAvatar.__name__ = "animix_client_js.client.form.InputAniAvatar";
+animix_$client_$js_client_form_InputAniAvatar.__super__ = animix_$client_$js_client_form_AView;
+animix_$client_$js_client_form_InputAniAvatar.prototype = $extend(animix_$client_$js_client_form_AView.prototype,{
+	dragStart: function(event) {
+		if(this._drag == null) {
+			return;
+		}
+		var box = this._dom.getBoundingClientRect();
+		this._drag.style.top = event.clientY - box.top + "px";
+		this._drag.style.left = event.clientX - box.left + "px";
+	}
+	,dragStop: function(event) {
+		this._drag = null;
+	}
+	,dragMove: function(event) {
+		if(this._drag == null) {
+			return;
+		}
+		var box = this._dom.getBoundingClientRect();
+		this._drag.style.top = event.clientY - box.top + "px";
+		this._drag.style.left = event.clientX - box.left + "px";
+	}
+	,__class__: animix_$client_$js_client_form_InputAniAvatar
 });
 var animix_$client_$js_client_form_InputAspectList = function(label) {
 	animix_$client_$js_client_form_AView.call(this);
@@ -2284,6 +2373,41 @@ animix_$client_$js_client_form_InputSelect.prototype = $extend(animix_$client_$j
 		return o;
 	}
 	,__class__: animix_$client_$js_client_form_InputSelect
+});
+var animix_$client_$js_client_form_InputSelectElement = function(label,name) {
+	var _g = new haxe_ds_StringMap();
+	_g.h["fire"] = "Fire";
+	_g.h["water"] = "Water";
+	_g.h["air"] = "Air";
+	_g.h["earth"] = "Earth";
+	_g.h["electric"] = "Electric";
+	this._element = new animix_$client_$js_client_form_InputSelect(label,name,_g);
+	animix_$client_$js_client_form_AViewComposite.call(this,[this._element]);
+};
+$hxClasses["animix_client_js.client.form.InputSelectElement"] = animix_$client_$js_client_form_InputSelectElement;
+animix_$client_$js_client_form_InputSelectElement.__name__ = "animix_client_js.client.form.InputSelectElement";
+animix_$client_$js_client_form_InputSelectElement.__interfaces__ = [animix_$client_$js_client_form_IForm];
+animix_$client_$js_client_form_InputSelectElement.__super__ = animix_$client_$js_client_form_AViewComposite;
+animix_$client_$js_client_form_InputSelectElement.prototype = $extend(animix_$client_$js_client_form_AViewComposite.prototype,{
+	getValue: function() {
+		return this._resolveElement(this._element.getValue());
+	}
+	,_resolveElement: function(s) {
+		switch(s) {
+		case "air":
+			return 3;
+		case "earth":
+			return 4;
+		case "electric":
+			return 5;
+		case "fire":
+			return 2;
+		case "water":
+			return 1;
+		}
+		throw haxe_Exception.thrown("invalid " + s);
+	}
+	,__class__: animix_$client_$js_client_form_InputSelectElement
 });
 var sweet_functor_IFunction = function() { };
 $hxClasses["sweet.functor.IFunction"] = sweet_functor_IFunction;
