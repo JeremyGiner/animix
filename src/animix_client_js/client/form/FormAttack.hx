@@ -2,7 +2,6 @@ package animix_client_js.client.form;
 
 import animix.ds.EDamageType;
 import animix.aspect.MoveDamage;
-import animix.ds.EDamageElement;
 
 class FormAttack extends AViewComposite implements IForm<MoveDamage> {
     
@@ -23,6 +22,10 @@ class FormAttack extends AViewComposite implements IForm<MoveDamage> {
 			_oType,
         ]);
     }
+
+	public function validate() {
+		return true;
+	}
 
 	public function getValue() {
 		return new MoveDamage(

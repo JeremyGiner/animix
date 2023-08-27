@@ -25,6 +25,9 @@ class InputAniAvatar extends AView {
                 <div data-marker-eye-1 style="top:10%;left:70%"></div>
             </div>
 			<style>
+				.wrapper-img-preview {
+					position: relative;
+				}
 				.input-ani-avatar {
 					position: relative;
 				}
@@ -61,7 +64,7 @@ class InputAniAvatar extends AView {
                 if( file == null )  return; // TODO : support input reset
 
                 var img :ImageElement = 
-					cast Browser.document.querySelector('[data-img-preview]');
+					cast _dom.querySelector('[data-img-preview]');
                 img.src = URL.createObjectURL(file);
 
                 img.dispatchEvent( new Event('inputfile-preview', cast {

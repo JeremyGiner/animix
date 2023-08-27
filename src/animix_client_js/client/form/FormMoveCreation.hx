@@ -13,11 +13,22 @@ class FormMoveCreation extends AViewComposite implements IForm<Move> {
 
     public function new() {
         super([
-			new Input('Move label', 'label'),
-			new InputSelectElement('Move element', 'element'),
-            new InputAspectList('Effect'),
+			_oLabel = new Input('Move label', 'label'),
+			_oElement = new InputSelectElement('Move element', 'element'),
+            _oAspect = new InputAspectList('Effect'),
         ]);
     }
+	public function validate() {
+		var a :Array<IForm<Dynamic>> = [
+			_oLabel,
+			_oElement,
+			_oAspect,
+		];
+		return ! a.map((child) -> {
+			return child.validate();
+		}).contains(false);
+	}
+	
 
     public function getValue() {
 		return new Move(

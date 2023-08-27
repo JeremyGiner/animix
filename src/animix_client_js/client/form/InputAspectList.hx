@@ -31,6 +31,15 @@ class InputAspectList extends AView implements IForm<Array<IAspect>> {
 		_dom.innerHTML = render();
 	}
 
+	public function validate() {
+		if (_aChild.length != 0) {
+			var error_box = _dom.querySelector('[data-form-error='+_uid+']');
+			error_box.textContent = 'Require at least one effect.';
+			return false;
+		}
+		return true;
+	}
+
 	public function getValue() :Array<IAspect> {
 		return _aChild.map((child) -> {
 			return child.getValue();

@@ -11,7 +11,7 @@ import js.Browser;
 
 class Client {
 
-	var _root :IViewComposite;
+	var _root :IView;
 
 	public function new() {
 
@@ -52,7 +52,7 @@ class Client {
 		return _root;
 	}
 
-	public function renderDyna(oView :IViewComposite) {
+	public function renderDyna(oView :IView) {
 		
 		var holder = Browser.document.body;
 		holder.innerHTML = '';

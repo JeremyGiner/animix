@@ -22,5 +22,9 @@ class FormEffectDamage extends AViewComposite {
         ]);
     }
 
+	public function validate() {
+		return true;
+	}
+
     
 }

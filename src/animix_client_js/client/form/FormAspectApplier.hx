@@ -16,6 +16,10 @@ class FormAspectApplier extends AViewComposite implements IForm<IAspect> {
             ]),
         ]);
     }
+	
+	public function validate() {
+		return true;
+	}
 
 	public function getValue() {
 		return new MoveAspectApplier(new FactoryDefault<IAspect>(Poison,[

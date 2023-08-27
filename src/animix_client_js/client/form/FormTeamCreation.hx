@@ -21,6 +21,10 @@ class FormTeamCreation extends AViewComposite implements IForm<Team> {
         ]);
     }
 
+	public function validate() {
+		return true;
+	}
+
     public function getValue() {
 		return new Team(
 			_oLabel.getValue(),

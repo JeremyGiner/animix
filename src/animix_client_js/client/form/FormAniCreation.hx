@@ -4,7 +4,7 @@ import animix.entity.AniType;
 import animix.entity.Ani;
 import animix.ds.EStat;
 
-class FormAniCreation extends AViewComposite implements IForm<Ani> {
+class FormAniCreation extends Layout implements IForm<Ani> {
 
 	var _oLabel :Input;
 	var _oElement0 :InputSelectElement;
@@ -17,16 +17,26 @@ class FormAniCreation extends AViewComposite implements IForm<Ani> {
 
     public function new() {
         super([
-            _oLabel = new Input('Name','label'),
-            _oElement0 = new InputSelectElement('Primary element','element0'),
-            _oElement1 = new InputSelectElement('Secondary element','element1'),
-            _oAvatar = new InputAniAvatar(),
-            _oMove0 = new FormMoveCreation(),
-            _oMove1 = new FormMoveCreation(),
-            _oMove2 = new FormMoveCreation(),
-            _oMove3 = new FormMoveCreation(),
+			new AViewComposite([
+				_oLabel = new Input('Name','label'),
+				_oElement0 = new InputSelectElement('Primary element','element0'),
+				_oElement1 = new InputSelectElement('Secondary element','element1'),
+				_oAvatar = new InputAniAvatar(),
+			]),
+			new AViewComposite([
+				_oMove0 = new FormMoveCreation(),
+				_oMove1 = new FormMoveCreation(),
+				_oMove2 = new FormMoveCreation(),
+				_oMove3 = new FormMoveCreation(),
+			]),
+            
+            
         ]);
     }
+
+	public function validate() {
+		return true;
+	}
 
 	public function getValue() {
 		return new Ani(

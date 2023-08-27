@@ -20,6 +20,10 @@ class InputSelectElement extends AViewComposite implements IForm<EDamageElement>
 		
     }
 
+	public function validate() {
+		return true;
+	}
+
 	public function getValue() {
 		return _resolveElement( _element.getValue() );
 	}

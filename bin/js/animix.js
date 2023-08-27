@@ -2048,7 +2048,10 @@ animix_$client_$js_client_form_AInput.__name__ = "animix_client_js.client.form.A
 animix_$client_$js_client_form_AInput.__interfaces__ = [animix_$client_$js_client_form_IForm];
 animix_$client_$js_client_form_AInput.__super__ = animix_$client_$js_client_form_AView;
 animix_$client_$js_client_form_AInput.prototype = $extend(animix_$client_$js_client_form_AView.prototype,{
-	getInputElement: function() {
+	validate: function() {
+		return true;
+	}
+	,getInputElement: function() {
 		return this._dom;
 	}
 	,getValue: function() {
@@ -2084,15 +2087,42 @@ animix_$client_$js_client_form_AViewComposite.prototype = $extend(animix_$client
 	}
 	,__class__: animix_$client_$js_client_form_AViewComposite
 });
+var animix_$client_$js_client_form_Layout = function(a) {
+	animix_$client_$js_client_form_AView.call(this);
+	this._child = a;
+	this._dom.classList.add("row");
+	var _g = 0;
+	while(_g < a.length) {
+		var el = a[_g];
+		++_g;
+		var col = window.document.createElement("div");
+		col.classList.add("col-auto");
+		col.append(el.getDomElement());
+		this._dom.append(col);
+	}
+};
+$hxClasses["animix_client_js.client.form.Layout"] = animix_$client_$js_client_form_Layout;
+animix_$client_$js_client_form_Layout.__name__ = "animix_client_js.client.form.Layout";
+animix_$client_$js_client_form_Layout.__interfaces__ = [animix_$client_$js_client_form_IViewComposite];
+animix_$client_$js_client_form_Layout.__super__ = animix_$client_$js_client_form_AView;
+animix_$client_$js_client_form_Layout.prototype = $extend(animix_$client_$js_client_form_AView.prototype,{
+	getClientChild: function(uid) {
+		throw haxe_Exception.thrown("!!!");
+	}
+	,__class__: animix_$client_$js_client_form_Layout
+});
 var animix_$client_$js_client_form_FormAniCreation = function() {
-	animix_$client_$js_client_form_AViewComposite.call(this,[this._oLabel = new animix_$client_$js_client_form_Input("Name","label"),this._oElement0 = new animix_$client_$js_client_form_InputSelectElement("Primary element","element0"),this._oElement1 = new animix_$client_$js_client_form_InputSelectElement("Secondary element","element1"),this._oAvatar = new animix_$client_$js_client_form_InputAniAvatar(),this._oMove0 = new animix_$client_$js_client_form_FormMoveCreation(),this._oMove1 = new animix_$client_$js_client_form_FormMoveCreation(),this._oMove2 = new animix_$client_$js_client_form_FormMoveCreation(),this._oMove3 = new animix_$client_$js_client_form_FormMoveCreation()]);
+	animix_$client_$js_client_form_Layout.call(this,[new animix_$client_$js_client_form_AViewComposite([this._oLabel = new animix_$client_$js_client_form_Input("Name","label"),this._oElement0 = new animix_$client_$js_client_form_InputSelectElement("Primary element","element0"),this._oElement1 = new animix_$client_$js_client_form_InputSelectElement("Secondary element","element1"),this._oAvatar = new animix_$client_$js_client_form_InputAniAvatar()]),new animix_$client_$js_client_form_AViewComposite([this._oMove0 = new animix_$client_$js_client_form_FormMoveCreation(),this._oMove1 = new animix_$client_$js_client_form_FormMoveCreation(),this._oMove2 = new animix_$client_$js_client_form_FormMoveCreation(),this._oMove3 = new animix_$client_$js_client_form_FormMoveCreation()])]);
 };
 $hxClasses["animix_client_js.client.form.FormAniCreation"] = animix_$client_$js_client_form_FormAniCreation;
 animix_$client_$js_client_form_FormAniCreation.__name__ = "animix_client_js.client.form.FormAniCreation";
 animix_$client_$js_client_form_FormAniCreation.__interfaces__ = [animix_$client_$js_client_form_IForm];
-animix_$client_$js_client_form_FormAniCreation.__super__ = animix_$client_$js_client_form_AViewComposite;
-animix_$client_$js_client_form_FormAniCreation.prototype = $extend(animix_$client_$js_client_form_AViewComposite.prototype,{
-	getValue: function() {
+animix_$client_$js_client_form_FormAniCreation.__super__ = animix_$client_$js_client_form_Layout;
+animix_$client_$js_client_form_FormAniCreation.prototype = $extend(animix_$client_$js_client_form_Layout.prototype,{
+	validate: function() {
+		return true;
+	}
+	,getValue: function() {
 		var tmp = this._oLabel.getValue();
 		var tmp1 = this._oLabel.getValue();
 		var _g = new haxe_ds_IntMap();
@@ -2117,7 +2147,10 @@ animix_$client_$js_client_form_FormAspectApplier.__name__ = "animix_client_js.cl
 animix_$client_$js_client_form_FormAspectApplier.__interfaces__ = [animix_$client_$js_client_form_IForm];
 animix_$client_$js_client_form_FormAspectApplier.__super__ = animix_$client_$js_client_form_AViewComposite;
 animix_$client_$js_client_form_FormAspectApplier.prototype = $extend(animix_$client_$js_client_form_AViewComposite.prototype,{
-	getValue: function() {
+	validate: function() {
+		return true;
+	}
+	,getValue: function() {
 		return new animix_aspect_MoveAspectApplier(new sweet_functor_builder_FactoryDefault(animix_aspect_Poison,[1,1]));
 	}
 	,__class__: animix_$client_$js_client_form_FormAspectApplier
@@ -2136,7 +2169,10 @@ animix_$client_$js_client_form_FormAttack.__name__ = "animix_client_js.client.fo
 animix_$client_$js_client_form_FormAttack.__interfaces__ = [animix_$client_$js_client_form_IForm];
 animix_$client_$js_client_form_FormAttack.__super__ = animix_$client_$js_client_form_AViewComposite;
 animix_$client_$js_client_form_FormAttack.prototype = $extend(animix_$client_$js_client_form_AViewComposite.prototype,{
-	getValue: function() {
+	validate: function() {
+		return true;
+	}
+	,getValue: function() {
 		return new animix_aspect_MoveDamage(this._oRange.getValueInt(),this._oElement.getValue(),this._resolveType(this._oType.getValue()),[]);
 	}
 	,_resolveType: function(s) {
@@ -2151,27 +2187,52 @@ animix_$client_$js_client_form_FormAttack.prototype = $extend(animix_$client_$js
 	,__class__: animix_$client_$js_client_form_FormAttack
 });
 var animix_$client_$js_client_form_FormMatchCreation = function() {
-	animix_$client_$js_client_form_AViewComposite.call(this,[this.oInputTeamRed = new animix_$client_$js_client_form_FormTeamCreation("Red"),this.oInputTeamBlue = new animix_$client_$js_client_form_FormTeamCreation("Blue")]);
+	animix_$client_$js_client_form_AView.call(this,"form");
+	this._dom.addEventListener("submit",$bind(this,this.submit));
+	var layout = new animix_$client_$js_client_form_Layout([this.oInputTeamRed = new animix_$client_$js_client_form_FormTeamCreation("Red"),this.oInputTeamBlue = new animix_$client_$js_client_form_FormTeamCreation("Blue"),this.oInputTeamBlue = new animix_$client_$js_client_form_FormTeamCreation("Blue")]);
+	this._dom.append(layout._dom);
+	this._dom.append(new animix_$client_$js_client_form_Submit("Battle !","")._dom);
 };
 $hxClasses["animix_client_js.client.form.FormMatchCreation"] = animix_$client_$js_client_form_FormMatchCreation;
 animix_$client_$js_client_form_FormMatchCreation.__name__ = "animix_client_js.client.form.FormMatchCreation";
 animix_$client_$js_client_form_FormMatchCreation.__interfaces__ = [animix_$client_$js_client_form_IForm];
-animix_$client_$js_client_form_FormMatchCreation.__super__ = animix_$client_$js_client_form_AViewComposite;
-animix_$client_$js_client_form_FormMatchCreation.prototype = $extend(animix_$client_$js_client_form_AViewComposite.prototype,{
-	getValue: function() {
+animix_$client_$js_client_form_FormMatchCreation.__super__ = animix_$client_$js_client_form_AView;
+animix_$client_$js_client_form_FormMatchCreation.prototype = $extend(animix_$client_$js_client_form_AView.prototype,{
+	submit: function() {
+		if(!this.validate()) {
+			return;
+		}
+		var oBattle = this.getValue();
+	}
+	,validate: function() {
+		var a = [this.oInputTeamRed.validate(),this.oInputTeamBlue.validate()];
+		return a.indexOf(false) == -1;
+	}
+	,getValue: function() {
 		return new animix_entity_Battle(this.oInputTeamRed.getValue(),this.oInputTeamBlue.getValue());
 	}
 	,__class__: animix_$client_$js_client_form_FormMatchCreation
 });
 var animix_$client_$js_client_form_FormMoveCreation = function() {
-	animix_$client_$js_client_form_AViewComposite.call(this,[new animix_$client_$js_client_form_Input("Move label","label"),new animix_$client_$js_client_form_InputSelectElement("Move element","element"),new animix_$client_$js_client_form_InputAspectList("Effect")]);
+	animix_$client_$js_client_form_AViewComposite.call(this,[this._oLabel = new animix_$client_$js_client_form_Input("Move label","label"),this._oElement = new animix_$client_$js_client_form_InputSelectElement("Move element","element"),this._oAspect = new animix_$client_$js_client_form_InputAspectList("Effect")]);
 };
 $hxClasses["animix_client_js.client.form.FormMoveCreation"] = animix_$client_$js_client_form_FormMoveCreation;
 animix_$client_$js_client_form_FormMoveCreation.__name__ = "animix_client_js.client.form.FormMoveCreation";
 animix_$client_$js_client_form_FormMoveCreation.__interfaces__ = [animix_$client_$js_client_form_IForm];
 animix_$client_$js_client_form_FormMoveCreation.__super__ = animix_$client_$js_client_form_AViewComposite;
 animix_$client_$js_client_form_FormMoveCreation.prototype = $extend(animix_$client_$js_client_form_AViewComposite.prototype,{
-	getValue: function() {
+	validate: function() {
+		var a = [this._oLabel,this._oElement,this._oAspect];
+		var result = new Array(a.length);
+		var _g = 0;
+		var _g1 = a.length;
+		while(_g < _g1) {
+			var i = _g++;
+			result[i] = a[i].validate();
+		}
+		return result.indexOf(false) == -1;
+	}
+	,getValue: function() {
 		return new animix_entity_Move("__",this._oLabel.getValue(),this._oElement.getValue(),1,this._oAspect.getValue(),0,null);
 	}
 	,__class__: animix_$client_$js_client_form_FormMoveCreation
@@ -2186,7 +2247,10 @@ animix_$client_$js_client_form_FormTeamCreation.__name__ = "animix_client_js.cli
 animix_$client_$js_client_form_FormTeamCreation.__interfaces__ = [animix_$client_$js_client_form_IForm];
 animix_$client_$js_client_form_FormTeamCreation.__super__ = animix_$client_$js_client_form_AViewComposite;
 animix_$client_$js_client_form_FormTeamCreation.prototype = $extend(animix_$client_$js_client_form_AViewComposite.prototype,{
-	getValue: function() {
+	validate: function() {
+		return true;
+	}
+	,getValue: function() {
 		return new animix_entity_Team(this._oLabel.getValue(),[this._oAni0.getValue(),this._oAni1.getValue(),this._oAni2.getValue()]);
 	}
 	,__class__: animix_$client_$js_client_form_FormTeamCreation
@@ -2205,7 +2269,7 @@ var animix_$client_$js_client_form_InputAniAvatar = function() {
 	this._drag = null;
 	animix_$client_$js_client_form_AView.call(this,"div");
 	this._dom.classList.add("input-ani-avatar");
-	var s = "\r\n            <input type=\"file\" data-input-avatar />\r\n            <div class=\"bg-checkboard wrapper-img-preview\" data-wrapper-preview style=\"display: none\">\r\n                <img class=\"img-fluid\" src=\"\" alt=\"\" data-img-preview />\r\n                <div data-marker-eye-0 style=\"top:10%;left:10%\"></div>\r\n                <div data-marker-eye-1 style=\"top:10%;left:70%\"></div>\r\n            </div>\r\n\t\t\t<style>\r\n\t\t\t\t.input-ani-avatar {\r\n\t\t\t\t\tposition: relative;\r\n\t\t\t\t}\r\n\r\n\t\t\t\t[data-marker-eye-0],\r\n\t\t\t\t[data-marker-eye-1] {\r\n\t\t\t\t\tposition: absolute; \r\n\r\n\t\t\t\t\tborder: 1px solid red;\r\n\t\t\t\t\twidth: 10%;\r\n\t\t\t\t\theight: 10%;\r\n\t\t\t\t\tbackground-color: white;\r\n\r\n\t\t\t\t\tcursor: move;\r\n\t\t\t\t}\r\n\r\n\t\t\t\t.bg-checkboard{\r\n\t\t\t\t\tbackground-size: 40px 40px;\r\n\t\t\t\t\tbackground-image: radial-gradient(circle, #000000 1px, rgba(0, 0, 0, 0) 1px);\r\n\t\t\t\t}\r\n\t\t\t</style>\r\n        ";
+	var s = "\r\n            <input type=\"file\" data-input-avatar />\r\n            <div class=\"bg-checkboard wrapper-img-preview\" data-wrapper-preview style=\"display: none\">\r\n                <img class=\"img-fluid\" src=\"\" alt=\"\" data-img-preview />\r\n                <div data-marker-eye-0 style=\"top:10%;left:10%\"></div>\r\n                <div data-marker-eye-1 style=\"top:10%;left:70%\"></div>\r\n            </div>\r\n\t\t\t<style>\r\n\t\t\t\t.wrapper-img-preview {\r\n\t\t\t\t\tposition: relative;\r\n\t\t\t\t}\r\n\t\t\t\t.input-ani-avatar {\r\n\t\t\t\t\tposition: relative;\r\n\t\t\t\t}\r\n\r\n\t\t\t\t[data-marker-eye-0],\r\n\t\t\t\t[data-marker-eye-1] {\r\n\t\t\t\t\tposition: absolute; \r\n\r\n\t\t\t\t\tborder: 1px solid red;\r\n\t\t\t\t\twidth: 10%;\r\n\t\t\t\t\theight: 10%;\r\n\t\t\t\t\tbackground-color: white;\r\n\r\n\t\t\t\t\tcursor: move;\r\n\t\t\t\t}\r\n\r\n\t\t\t\t.bg-checkboard{\r\n\t\t\t\t\tbackground-size: 40px 40px;\r\n\t\t\t\t\tbackground-image: radial-gradient(circle, #000000 1px, rgba(0, 0, 0, 0) 1px);\r\n\t\t\t\t}\r\n\t\t\t</style>\r\n        ";
 	this._dom.innerHTML = s;
 	var wrapper = this._dom.querySelector("[data-wrapper-preview]");
 	var marker_eye_0 = this._dom.querySelector("[data-marker-eye-0]");
@@ -2216,7 +2280,7 @@ var animix_$client_$js_client_form_InputAniAvatar = function() {
 		if(file == null) {
 			return;
 		}
-		var img = window.document.querySelector("[data-img-preview]");
+		var img = _gthis._dom.querySelector("[data-img-preview]");
 		img.src = URL.createObjectURL(file);
 		img.dispatchEvent(new Event("inputfile-preview",{ target : img, input : target, bubbles : true}));
 		wrapper.style.display = "";
@@ -2273,7 +2337,15 @@ animix_$client_$js_client_form_InputAspectList.getTemplateItem = function() {
 };
 animix_$client_$js_client_form_InputAspectList.__super__ = animix_$client_$js_client_form_AView;
 animix_$client_$js_client_form_InputAspectList.prototype = $extend(animix_$client_$js_client_form_AView.prototype,{
-	getValue: function() {
+	validate: function() {
+		if(this._aChild.length != 0) {
+			var error_box = this._dom.querySelector("[data-form-error=" + this._uid + "]");
+			error_box.textContent = "Require at least one effect.";
+			return false;
+		}
+		return true;
+	}
+	,getValue: function() {
 		var _this = this._aChild;
 		var result = new Array(_this.length);
 		var _g = 0;
@@ -2389,7 +2461,10 @@ animix_$client_$js_client_form_InputSelectElement.__name__ = "animix_client_js.c
 animix_$client_$js_client_form_InputSelectElement.__interfaces__ = [animix_$client_$js_client_form_IForm];
 animix_$client_$js_client_form_InputSelectElement.__super__ = animix_$client_$js_client_form_AViewComposite;
 animix_$client_$js_client_form_InputSelectElement.prototype = $extend(animix_$client_$js_client_form_AViewComposite.prototype,{
-	getValue: function() {
+	validate: function() {
+		return true;
+	}
+	,getValue: function() {
 		return this._resolveElement(this._element.getValue());
 	}
 	,_resolveElement: function(s) {
@@ -2408,6 +2483,41 @@ animix_$client_$js_client_form_InputSelectElement.prototype = $extend(animix_$cl
 		throw haxe_Exception.thrown("invalid " + s);
 	}
 	,__class__: animix_$client_$js_client_form_InputSelectElement
+});
+var animix_$client_$js_client_form_Submit = function(label,name,attr) {
+	this._label = label;
+	this._name = name;
+	animix_$client_$js_client_form_AView.call(this,"button");
+	this._dom.setAttribute("type","submit");
+	this._dom.setAttribute("name",name);
+	this._dom.classList.add("btn-primary");
+	this._dom.classList.add("btn");
+	this._dom.textContent = label;
+	if(attr != null) {
+		var _g = haxe_ds_StringMap.kvIterator(attr.h);
+		while(_g.hasNext()) {
+			var _g1 = _g.next();
+			var k = _g1.key;
+			var v = _g1.value;
+			this._dom.setAttribute(k,v);
+		}
+	}
+};
+$hxClasses["animix_client_js.client.form.Submit"] = animix_$client_$js_client_form_Submit;
+animix_$client_$js_client_form_Submit.__name__ = "animix_client_js.client.form.Submit";
+animix_$client_$js_client_form_Submit.__interfaces__ = [animix_$client_$js_client_form_IForm];
+animix_$client_$js_client_form_Submit.__super__ = animix_$client_$js_client_form_AView;
+animix_$client_$js_client_form_Submit.prototype = $extend(animix_$client_$js_client_form_AView.prototype,{
+	validate: function() {
+		return true;
+	}
+	,getInputElement: function() {
+		return this._dom;
+	}
+	,getValue: function() {
+		return this.getInputElement().value;
+	}
+	,__class__: animix_$client_$js_client_form_Submit
 });
 var sweet_functor_IFunction = function() { };
 $hxClasses["sweet.functor.IFunction"] = sweet_functor_IFunction;
@@ -5139,7 +5249,7 @@ var Float = Number;
 var Bool = Boolean;
 var Class = { };
 var Enum = { };
-haxe_Resource.content = [{ name : "form.input_listaspect_item", data : "PGZpZWxkc2V0Pg0KCTxzcGFuIGRhdGEtcGxhY2Vob2xkZXI+PC9zcGFuPg0KCTxidXR0b24gY2xhc3M9ImJ0biBidG4tZGFuZ2VyIiB0eXBlPSJidXR0b24iIG9uY2xpY2s9IkNsaWVudC5nZXRDbGllbnRDaGlsZCg6OnVpZDo6KS5yZW1vdmVBY3Rpb24odGhpcykiPg0KCQlSZW1vdmUNCgk8L2J1dHRvbj4NCjwvZmllbGRzZXQ+"},{ name : "form.input_aspect", data : "PGRpdiBjbGFzcz0ibWItMyIgZGF0YS1keW4tdHBsPSI6OnVpZDo6Ij4NCiAgICA8ZGl2IGNsYXNzPSJmb3JtLWxhYmVsIj46OmxhYmVsOjo8L2Rpdj4NCiAgICA6OmlmIGFjdGlvbl9vcHRpb25fbGlzdDo6DQogICAgPGRpdj4NCiAgICAgICAgPHNlbGVjdCBkYXRhLWlucHV0YXNwZWN0LXNlbGVjdC1hY3Rpb24+DQogICAgICAgICAgICA6OmZvcmVhY2ggYWN0aW9uX29wdGlvbl9saXN0OjoNCiAgICAgICAgICAgIDxvcHRpb24gdmFsdWU9Ijo6dmFsdWU6OiI+OjpsYWJlbDo6PC9vcHRpb24+DQogICAgICAgICAgICA6OmVuZDo6DQogICAgICAgIDwvc2VsZWN0Pg0KICAgICAgICA8YnV0dG9uIGNsYXNzPSJidG4gYnRuLXN1Y2Nlc3MiIHR5cGU9ImJ1dHRvbiIgDQogICAgICAgICAgICBvbmNsaWNrPSJDbGllbnQuZ2V0Q2xpZW50Q2hpbGQoOjp1aWQ6OikuYWRkQWN0aW9uKHRoaXMpIg0KICAgICAgICA+DQogICAgICAgICAgICBBZGQgYWN0aW9uDQogICAgICAgIDwvYnV0dG9uPg0KICAgIDwvZGl2Pg0KICAgIDo6ZW5kOjoNCiAgICA8ZGl2IGNsYXNzPSJwci0zIiBkYXRhLWFjdGlvbi1saXN0PjwvZGl2Pg0KPC9kaXY+"},{ name : "form.input_base", data : "PGRpdiBkYXRhLWR5bi10cGw9Ijo6dWlkOjoiIGNsYXNzPSJtYi0zIj4NCiAgICA8bGFiZWwgZm9yPSI6OnVpZDo6IiBjbGFzcz0iZm9ybS1sYWJlbCI+OjpsYWJlbDo6PC9sYWJlbD4NCiAgICA8aW5wdXQgdHlwZT0iOjp0eXBlOjoiIGNsYXNzPSJmb3JtLWNvbnRyb2wiIGlkPSJpbnB1dC06OnVpZDo6IiBwbGFjZWhvbGRlcj0iOjpwbGFjZWhvbGRlcjo6Ij4NCjwvZGl2Pg"},{ name : "form.form_base", data : "PGRpdiBkYXRhLWR5bi10cGw9Ijo6dWlkOjoiPg0KOjpmb3JlYWNoIGNoaWxkX2xpc3Q6Og0KICAgIDo6dHBsOjoNCjo6ZW5kOjoNCjwvZGl2Pg"}];
+haxe_Resource.content = [{ name : "form.input_listaspect_item", data : "PGZpZWxkc2V0Pg0KCTxzcGFuIGRhdGEtcGxhY2Vob2xkZXI+PC9zcGFuPg0KCTxidXR0b24gY2xhc3M9ImJ0biBidG4tZGFuZ2VyIiB0eXBlPSJidXR0b24iIG9uY2xpY2s9IkNsaWVudC5nZXRDbGllbnRDaGlsZCg6OnVpZDo6KS5yZW1vdmVBY3Rpb24odGhpcykiPg0KCQlSZW1vdmUNCgk8L2J1dHRvbj4NCjwvZmllbGRzZXQ+"},{ name : "form.input_aspect", data : "PGRpdiBjbGFzcz0ibWItMyIgZGF0YS1keW4tdHBsPSI6OnVpZDo6Ij4NCgk8cCBjbGFzcz0idGV4dC1kYW5nZXIiIGRhdGEtZm9ybS1lcnJvcj0iOjp1aWQ6OiI+PC9wPg0KICAgIDxkaXYgY2xhc3M9ImZvcm0tbGFiZWwiPjo6bGFiZWw6OjwvZGl2Pg0KICAgIDo6aWYgYWN0aW9uX29wdGlvbl9saXN0OjoNCiAgICA8ZGl2Pg0KICAgICAgICA8c2VsZWN0IGRhdGEtaW5wdXRhc3BlY3Qtc2VsZWN0LWFjdGlvbj4NCiAgICAgICAgICAgIDo6Zm9yZWFjaCBhY3Rpb25fb3B0aW9uX2xpc3Q6Og0KICAgICAgICAgICAgPG9wdGlvbiB2YWx1ZT0iOjp2YWx1ZTo6Ij46OmxhYmVsOjo8L29wdGlvbj4NCiAgICAgICAgICAgIDo6ZW5kOjoNCiAgICAgICAgPC9zZWxlY3Q+DQogICAgICAgIDxidXR0b24gY2xhc3M9ImJ0biBidG4tc3VjY2VzcyIgdHlwZT0iYnV0dG9uIiANCiAgICAgICAgICAgIG9uY2xpY2s9IkNsaWVudC5nZXRDbGllbnRDaGlsZCg6OnVpZDo6KS5hZGRBY3Rpb24odGhpcykiDQogICAgICAgID4NCiAgICAgICAgICAgIEFkZCBhY3Rpb24NCiAgICAgICAgPC9idXR0b24+DQogICAgPC9kaXY+DQogICAgOjplbmQ6Og0KICAgIDxkaXYgY2xhc3M9InByLTMiIGRhdGEtYWN0aW9uLWxpc3Q+PC9kaXY+DQo8L2Rpdj4"},{ name : "form.input_base", data : "PGRpdiBkYXRhLWR5bi10cGw9Ijo6dWlkOjoiIGNsYXNzPSJtYi0zIj4NCiAgICA8bGFiZWwgZm9yPSI6OnVpZDo6IiBjbGFzcz0iZm9ybS1sYWJlbCI+OjpsYWJlbDo6PC9sYWJlbD4NCiAgICA8aW5wdXQgdHlwZT0iOjp0eXBlOjoiIGNsYXNzPSJmb3JtLWNvbnRyb2wiIGlkPSJpbnB1dC06OnVpZDo6IiBwbGFjZWhvbGRlcj0iOjpwbGFjZWhvbGRlcjo6Ij4NCjwvZGl2Pg"},{ name : "form.form_base", data : "PGRpdiBkYXRhLWR5bi10cGw9Ijo6dWlkOjoiPg0KOjpmb3JlYWNoIGNoaWxkX2xpc3Q6Og0KICAgIDo6dHBsOjoNCjo6ZW5kOjoNCjwvZGl2Pg"}];
 js_Boot.__toStr = ({ }).toString;
 haxe_ds_ObjectMap.count = 0;
 haxe_Template.splitter = new EReg("(::[A-Za-z0-9_ ()&|!+=/><*.\"-]+::|\\$\\$([A-Za-z0-9_-]+)\\()","");
