@@ -1,14 +1,13 @@
-package mon_calc.action;
+package animix.action;
 
-import mon_calc.action.IAction;
-import mon_calc.entity.Battle;
+import animix.entity.Battle;
 
 class AniMoveAction implements IAction {
 
 	var _bSide :Bool;
-	var _iMoveId :Int;
+	var _iMoveId :Null<Int>;
 
-	public function new( bSide :Bool, iMoveId :Int ) {
+	public function new( bSide :Bool, iMoveId :Null<Int> ) {
 		_bSide = bSide;
 		_iMoveId = iMoveId;
 	}
@@ -16,7 +15,11 @@ class AniMoveAction implements IAction {
 	public function getSide() { return _bSide; }
 
 	public function getMove( oBattle :Battle ) {
-		return oBattle.getCurrentMon( _bSide ).getMove( _iMoveId );
+		var oAni = oBattle.getCurrentMon( _bSide );
+		if( _iMoveId == null ) {
+			return oAni.getType().getDefaultMove();
+		}
+		return oAni.getMove( _iMoveId );
 	}
 
 	public function validate( oBattle :Battle ) :Bool {

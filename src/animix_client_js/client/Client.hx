@@ -1,12 +1,6 @@
 package animix_client_js.client;
 
-import js.html.MouseEvent;
-import animix_client_js.client.form.IViewComposite;
 import animix_client_js.client.form.IView;
-import animix_client_js.Template;
-import animix_client_js.tool.VPathAccessor;
-import js.html.Element;
-import js.html.Event;
 import js.Browser;
 
 class Client {
@@ -61,6 +55,9 @@ class Client {
 		_root = oView;
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public function getClientChild( uid :Int ) :IView {
 		var el = _root.getDomElement().querySelector('[data-client-id="'+uid+'"]');
 		return untyped el.hxComponent;

@@ -1,9 +1,9 @@
 package animix.core.aspect;
 
-import animix.event.SwitchContext;
 import animix.ds.Context;
 import mon_calc.core.effect.IEffect;
+import animix.event.ActionPromptContext;
 
-interface OnSwitchOut extends IEffect<SwitchContext> {
+interface OnActionPrompt extends IEffect<ActionPromptContext> {
 	public function getPriority() :String;
 }

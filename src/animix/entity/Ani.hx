@@ -155,4 +155,5 @@ class Ani extends AAspectBearer {
 		
 		return Math.floor((fStat * _iLevel / 100) + 5);
 	}
+	
 }

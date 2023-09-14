@@ -1,5 +1,6 @@
 package animix_client_js;
 
+import animix_client_js.client.component.page.MainPage;
 import animix_client_js.client.form.FormMatchCreation;
 import js.Browser;
 import animix_client_js.client.form.FormMoveCreation;
@@ -30,7 +31,7 @@ import animix.entity.Team;
 
 	public function new() {
 		_oClient = new Client();
-		var oForm = new FormMatchCreation();
+		var oForm = new MainPage();
 
 		_oClient.renderDyna(
 			oForm

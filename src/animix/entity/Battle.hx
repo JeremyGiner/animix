@@ -48,4 +48,10 @@ class Battle extends AAspectBearer {
 		) return false;
 		return true;
 	}
+
+	public function getSideFromAni( oAni :Ani ) {
+		if( _oTeamRed.getMonAr().contains(oAni) ) return false;
+		if( _oTeamBlue.getMonAr().contains(oAni) ) return true;
+		throw '!!!';
+	}
 }

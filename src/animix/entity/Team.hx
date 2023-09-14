@@ -21,6 +21,10 @@ class Team extends AAspectBearer {
 		if( i >= _aMon.length ) return null;
 		return _aMon[ i ]; 
 	}
+	public function getFighter( i :Int ) :Ani { 
+		if( i >= _aMon.length ) return null;
+		return _aMon[ i ]; 
+	}
 
 	public function getMonIndex( oMon :Ani ) :Null<Int> {
 		for( i in 0..._aMon.length )

@@ -1,12 +1,15 @@
 package animix.state;
 
+import animix.core.aspect.OnMoveCalc;
+import animix.event.MoveCalcContext;
+import animix.action.AniMoveAction;
+import animix.action.IAction;
+import animix.entity.Battle;
 import animix.core.aspect.OnMove;
-import mon_calc.ds.event.MoveCalcContext;
 import animix.state.TurnEndState;
 import animix.entity.Ani;
 import animix.action.AniSwitchAction;
 import animix.ds.Context;
-import mon_calc.action.IAction;
 import mon_calc.core.IState;
 
 class AniMoveState extends BaseState {
@@ -15,23 +18,22 @@ class AniMoveState extends BaseState {
 	var _oActionBlue :IAction;
 
 	public function new( 
-		oContext :Context,  
-		oActionRed : IAction, 
+		oBattle :Battle,  
+		oActionRed: IAction, 
 		oActionBlue :IAction
 	) {
-		super(oContext);
+		super(oBattle);
 		_oActionRed = oActionRed;
 		_oActionBlue = oActionBlue;
 	}
 
-	public function process() {
+	override public function process() {
 
-		var oBattle = _oContext.battle;
+		var oBattle = _oBattle;
 		var aEvent :Array<MoveCalcContext> = [];
 		if( Std.isOfType( _oActionRed, AniMoveAction ) ) {
-			var oMove = _oActionRed.getMove(_oContext.battle);
+			var oMove = cast(_oActionRed, AniMoveAction).getMove(_oBattle);
 			aEvent.push({
-				type: OnMoveCalc,
 				side: false,
 				mon: oBattle.getCurrentMon(false),
 				move_origin: oMove,
@@ -39,9 +41,8 @@ class AniMoveState extends BaseState {
 			} );
 		}
 		if( Std.isOfType( _oActionBlue, AniMoveAction ) ) {
-			var oMove = _oActionBlue.getMove(_oContext.battle);
+			var oMove = cast(_oActionBlue, AniMoveAction).getMove(_oBattle);
 			aEvent.push({
-				type: OnMoveCalc,
 				side: true,
 				mon: oBattle.getCurrentMon(true),
 				move_origin: oMove,
@@ -52,22 +53,22 @@ class AniMoveState extends BaseState {
 
 		// Transform moves
 		for( oEvent in aEvent ) {
-			trigger( OnMove, oEvent );
+			trigger( OnMoveCalc, oEvent );
 		}
 
-		// _oContext.state = new TriggerState(
-		// 	_oContext,
+		// _oBattle.state = new TriggerState(
+		// 	_oBattle,
 		// 	OnQuickAttack,
 		// 	new TriggerState(
-		// 		_oContext,
+		// 		_oBattle,
 		// 		OnAttack,
 		// 		new TriggerState(
-		// 			_oContext,
+		// 			_oBattle,
 		// 			OnAttackSlow,
 		// 			new TriggerState(
-		// 				_oContext,
+		// 				_oBattle,
 		// 				OnTurnEnd,
-		// 				new AniActionState(_oContext)
+		// 				new AniActionState(_oBattle)
 		// 			)
 		// 		)
 		// 	)
@@ -82,25 +83,31 @@ class AniMoveState extends BaseState {
 			);
 			if( i == 0 )
 				return -Reflect.compare(
-					getCurrentMonStat( _oBattle.getCurrentMon( a.getSide() ) ).get(Speed),
-					getCurrentMonStat( _oBattle.getCurrentMon( b.getSide() ) ).get(Speed)
+					getCurrentStat( 
+						_oBattle.getCurrentMon( a.side ),
+						Speed
+					),
+					getCurrentStat( 
+						_oBattle.getCurrentMon( b.side ),
+						Speed
+					)
 				);
 			return i;
 		});
 
 		// Process move
 		for( oEvent in aEvent ) {
-			doMove( oEvent.move );
+			doMove( oEvent );
 		}
 		
 
 		// TODO : pay cost
 
-		_oContext.process = new TurnEndState( _oContext );
+		return new TurnEndState( _oBattle );
 		// new TriggerState(
-		// 	_oContext,
+		// 	_oBattle,
 		// 	OnTurnEnd,
-		// 	new AniActionState(_oContext)
+		// 	new AniActionState(_oBattle)
 		// )
 	}
 
@@ -114,12 +121,12 @@ class AniMoveState extends BaseState {
 
 		// Case : move fail to transform
 		if( oMove == null ) {
-			log(oMoveCalcContex.move_origin.getLabel() + ' has failed.');
+			//log(oMoveCalcContex.move_origin.getLabel() + ' has failed.');
 			return;
 		}
 
 		// Process attack
-		var oMonTarget :Mon = null;
+		var oMonTarget :Ani = null;
 		switch( oMove.getTarget() ) {
 			case Self: oMonTarget = oMonAtt;
 			case SingleFoe: oMonTarget = _oBattle.getCurrentMon( !bSide );
@@ -128,26 +135,15 @@ class AniMoveState extends BaseState {
 		}
 
 		
-		log( oMonAtt.getLabel() + ' use ' + oMove.getLabel() );
+		//log( oMonAtt.getLabel() + ' use ' + oMove.getLabel() );
 
-		var oContext :MoveContext = {
-			type: OnAttack,
+		trigger( OnMove, {
 			side_att: bSide,
-			mon_att: oMonAtt,
-			stat_att: getCurrentMonStat( oMonAtt ),
-			mon_def: oMonTarget,
-			stat_def: getCurrentMonStat( oMonTarget ),
-			move: oMove,
 			turnover: false,
-		};
-		trigger( 
-			oContext,
-			oMoveCalcContex.move.getAspectByEvent(  {
-				processor: this, battle: _oBattle, 
-				side: bSide, mon: oMonAtt, event: oContext, 
-				owner: oMoveCalcContex.move,
-			} ) 
-		);
+			move: oMove,
+			defender: oMonTarget,
+			attacker: oMonAtt,
+		});
 
 		
 	}

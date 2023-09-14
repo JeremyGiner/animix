@@ -1,6 +1,6 @@
 package animix.action;
 
-import mon_calc.action.IAction;
+import animix.entity.Battle;
 import animix.ds.Context;
 
 class AniSwitchAction implements IAction {
@@ -15,14 +15,19 @@ class AniSwitchAction implements IAction {
 
 	public function getSide() { return _bSide; }
 	public function getMonIndex() { return _iBattlerIndex; }
+	public function getAni( oBattle :Battle ) { 
+		return oBattle
+			.getTeam( _bSide )
+			.getFighter( _iBattlerIndex );
+	}
 
-	public function validate( oContext :Context ) {
-		var oAni = oContext.battle.getTeam( _bSide ).getBattler( _iBattlerIndex );
+	public function validate( oBattle :Battle ) {
+		var oAni = getAni( oBattle );
 		if( oAni == null || oAni.getHealth() <= 0 ) return false;
 		return true;
 	}
 
-	public function process( oContext :Context ) {
+	public function process( oBattle :Battle ) {
 		throw '!!!'; 
 	} 
 

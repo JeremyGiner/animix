@@ -24,7 +24,7 @@ class AAspectBearer implements IAspectBearer {
 		return null;
 	}
 
-	public function getAspectByClass<C:IAspect>( oClass :Class<C> ) :Array<C> {
+	public function getAspectByClass<C>( oClass :Class<C> ) :Array<C> {
 		var s = Type.getClassName(oClass);
 		if( !_mCacheByClass.exists(s) ) {
 			_mCacheByClass.set( s, _aAspect.filter((oAspect :IAspect) -> {

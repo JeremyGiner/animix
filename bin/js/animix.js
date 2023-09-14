@@ -289,6 +289,72 @@ Type.enumParameters = function(e) {
 		return [];
 	}
 };
+var mon_$calc_core_IAction = function() { };
+$hxClasses["mon_calc.core.IAction"] = mon_$calc_core_IAction;
+mon_$calc_core_IAction.__name__ = "mon_calc.core.IAction";
+mon_$calc_core_IAction.__isInterface__ = true;
+mon_$calc_core_IAction.prototype = {
+	__class__: mon_$calc_core_IAction
+};
+var animix_action_IAction = function() { };
+$hxClasses["animix.action.IAction"] = animix_action_IAction;
+animix_action_IAction.__name__ = "animix.action.IAction";
+animix_action_IAction.__isInterface__ = true;
+animix_action_IAction.__interfaces__ = [mon_$calc_core_IAction];
+var animix_action_AniMoveAction = function(bSide,iMoveId) {
+	this._bSide = bSide;
+	this._iMoveId = iMoveId;
+};
+$hxClasses["animix.action.AniMoveAction"] = animix_action_AniMoveAction;
+animix_action_AniMoveAction.__name__ = "animix.action.AniMoveAction";
+animix_action_AniMoveAction.__interfaces__ = [animix_action_IAction];
+animix_action_AniMoveAction.prototype = {
+	getSide: function() {
+		return this._bSide;
+	}
+	,getMove: function(oBattle) {
+		var oAni = oBattle.getCurrentMon(this._bSide);
+		if(this._iMoveId == null) {
+			return oAni.getType().getDefaultMove();
+		}
+		return oAni.getMove(this._iMoveId);
+	}
+	,validate: function(oBattle) {
+		return true;
+	}
+	,process: function(oGame) {
+	}
+	,__class__: animix_action_AniMoveAction
+};
+var animix_action_AniSwitchAction = function(bSide,iMonIndex) {
+	this._bSide = bSide;
+	this._iBattlerIndex = iMonIndex;
+};
+$hxClasses["animix.action.AniSwitchAction"] = animix_action_AniSwitchAction;
+animix_action_AniSwitchAction.__name__ = "animix.action.AniSwitchAction";
+animix_action_AniSwitchAction.__interfaces__ = [animix_action_IAction];
+animix_action_AniSwitchAction.prototype = {
+	getSide: function() {
+		return this._bSide;
+	}
+	,getMonIndex: function() {
+		return this._iBattlerIndex;
+	}
+	,getAni: function(oBattle) {
+		return oBattle.getTeam(this._bSide).getFighter(this._iBattlerIndex);
+	}
+	,validate: function(oBattle) {
+		var oAni = this.getAni(oBattle);
+		if(oAni == null || oAni.getHealth() <= 0) {
+			return false;
+		}
+		return true;
+	}
+	,process: function(oBattle) {
+		throw haxe_Exception.thrown("!!!");
+	}
+	,__class__: animix_action_AniSwitchAction
+};
 var animix_aspect_Damage = function(iPower,eType,eCategory,aFlag) {
 	this._eType = eType;
 	this._eCategory = eCategory;
@@ -501,6 +567,14 @@ animix_aspect_Poison.prototype = $extend(mon_$calc_core_aspect_AAspect.prototype
 	}
 	,__class__: animix_aspect_Poison
 });
+var animix_core_aspect_OnActionPrompt = function() { };
+$hxClasses["animix.core.aspect.OnActionPrompt"] = animix_core_aspect_OnActionPrompt;
+animix_core_aspect_OnActionPrompt.__name__ = "animix.core.aspect.OnActionPrompt";
+animix_core_aspect_OnActionPrompt.__isInterface__ = true;
+animix_core_aspect_OnActionPrompt.__interfaces__ = [mon_$calc_core_effect_IEffect];
+animix_core_aspect_OnActionPrompt.prototype = {
+	__class__: animix_core_aspect_OnActionPrompt
+};
 var animix_core_aspect_OnDamage = function() { };
 $hxClasses["animix.core.aspect.OnDamage"] = animix_core_aspect_OnDamage;
 animix_core_aspect_OnDamage.__name__ = "animix.core.aspect.OnDamage";
@@ -517,6 +591,45 @@ animix_core_aspect_OnDamageCalc.__interfaces__ = [mon_$calc_core_effect_IEffect]
 animix_core_aspect_OnDamageCalc.prototype = {
 	__class__: animix_core_aspect_OnDamageCalc
 };
+var animix_core_aspect_OnMoveCalc = function() { };
+$hxClasses["animix.core.aspect.OnMoveCalc"] = animix_core_aspect_OnMoveCalc;
+animix_core_aspect_OnMoveCalc.__name__ = "animix.core.aspect.OnMoveCalc";
+animix_core_aspect_OnMoveCalc.__isInterface__ = true;
+animix_core_aspect_OnMoveCalc.__interfaces__ = [mon_$calc_core_effect_IEffect];
+animix_core_aspect_OnMoveCalc.prototype = {
+	__class__: animix_core_aspect_OnMoveCalc
+};
+var animix_core_aspect_OnStatCalc = function() { };
+$hxClasses["animix.core.aspect.OnStatCalc"] = animix_core_aspect_OnStatCalc;
+animix_core_aspect_OnStatCalc.__name__ = "animix.core.aspect.OnStatCalc";
+animix_core_aspect_OnStatCalc.__isInterface__ = true;
+animix_core_aspect_OnStatCalc.__interfaces__ = [mon_$calc_core_effect_IEffect];
+var animix_core_aspect_OnSwitchIn = function() { };
+$hxClasses["animix.core.aspect.OnSwitchIn"] = animix_core_aspect_OnSwitchIn;
+animix_core_aspect_OnSwitchIn.__name__ = "animix.core.aspect.OnSwitchIn";
+animix_core_aspect_OnSwitchIn.__isInterface__ = true;
+animix_core_aspect_OnSwitchIn.__interfaces__ = [mon_$calc_core_effect_IEffect];
+animix_core_aspect_OnSwitchIn.prototype = {
+	__class__: animix_core_aspect_OnSwitchIn
+};
+var animix_core_aspect_OnSwitchOut = function() { };
+$hxClasses["animix.core.aspect.OnSwitchOut"] = animix_core_aspect_OnSwitchOut;
+animix_core_aspect_OnSwitchOut.__name__ = "animix.core.aspect.OnSwitchOut";
+animix_core_aspect_OnSwitchOut.__isInterface__ = true;
+animix_core_aspect_OnSwitchOut.__interfaces__ = [mon_$calc_core_effect_IEffect];
+animix_core_aspect_OnSwitchOut.prototype = {
+	__class__: animix_core_aspect_OnSwitchOut
+};
+var animix_core_aspect_OnTurnEnd = function() { };
+$hxClasses["animix.core.aspect.OnTurnEnd"] = animix_core_aspect_OnTurnEnd;
+animix_core_aspect_OnTurnEnd.__name__ = "animix.core.aspect.OnTurnEnd";
+animix_core_aspect_OnTurnEnd.__isInterface__ = true;
+animix_core_aspect_OnTurnEnd.__interfaces__ = [mon_$calc_core_effect_IEffect];
+var animix_core_aspect_OnTurnStart = function() { };
+$hxClasses["animix.core.aspect.OnTurnStart"] = animix_core_aspect_OnTurnStart;
+animix_core_aspect_OnTurnStart.__name__ = "animix.core.aspect.OnTurnStart";
+animix_core_aspect_OnTurnStart.__isInterface__ = true;
+animix_core_aspect_OnTurnStart.__interfaces__ = [mon_$calc_core_effect_IEffect];
 var mon_$calc_core_aspect_IAspectBearer = function() { };
 $hxClasses["mon_calc.core.aspect.IAspectBearer"] = mon_$calc_core_aspect_IAspectBearer;
 mon_$calc_core_aspect_IAspectBearer.__name__ = "mon_calc.core.aspect.IAspectBearer";
@@ -798,6 +911,15 @@ animix_entity_Battle.prototype = $extend(mon_$calc_core_aspect_AAspectBearer.pro
 		}
 		return true;
 	}
+	,getSideFromAni: function(oAni) {
+		if(this._oTeamRed.getMonAr().indexOf(oAni) != -1) {
+			return false;
+		}
+		if(this._oTeamBlue.getMonAr().indexOf(oAni) != -1) {
+			return true;
+		}
+		throw haxe_Exception.thrown("!!!");
+	}
 	,__class__: animix_entity_Battle
 });
 var mon_$calc_core_entity_ABattleSlot = function(bSide,oBattler) {
@@ -889,6 +1011,12 @@ animix_entity_Team.prototype = $extend(mon_$calc_core_aspect_AAspectBearer.proto
 		}
 		return this._aMon[i];
 	}
+	,getFighter: function(i) {
+		if(i >= this._aMon.length) {
+			return null;
+		}
+		return this._aMon[i];
+	}
 	,getMonIndex: function(oMon) {
 		var _g = 0;
 		var _g1 = this._aMon.length;
@@ -923,9 +1051,274 @@ animix_entity_Team.prototype = $extend(mon_$calc_core_aspect_AAspectBearer.proto
 	}
 	,__class__: animix_entity_Team
 });
+var mon_$calc_core_IState = function() { };
+$hxClasses["mon_calc.core.IState"] = mon_$calc_core_IState;
+mon_$calc_core_IState.__name__ = "mon_calc.core.IState";
+mon_$calc_core_IState.__isInterface__ = true;
+mon_$calc_core_IState.prototype = {
+	__class__: mon_$calc_core_IState
+};
+var animix_state_BaseState = function(oBattle) {
+	this._oBattle = oBattle;
+};
+$hxClasses["animix.state.BaseState"] = animix_state_BaseState;
+animix_state_BaseState.__name__ = "animix.state.BaseState";
+animix_state_BaseState.__interfaces__ = [mon_$calc_core_IState];
+animix_state_BaseState.prototype = {
+	process: function() {
+		throw haxe_Exception.thrown("!!");
+	}
+	,trigger: function(oInterface,oEvent) {
+		var a = [].concat(this.getAspectContextPair(oInterface,this._oBattle)).concat(this.getAspectContextPair(oInterface,this._oBattle.getTeamRed())).concat(this.getAspectContextPair(oInterface,this._oBattle.getTeamBlue())).concat(this.getAspectContextPair(oInterface,this._oBattle.getCurrentMon(false))).concat(this.getAspectContextPair(oInterface,this._oBattle.getCurrentMon(true)));
+		var _g = 0;
+		while(_g < a.length) {
+			var pair = a[_g];
+			++_g;
+			pair.B.notify(pair.A,oEvent);
+		}
+		return oEvent;
+	}
+	,getAspectContextPair: function(oInterface,oBearer) {
+		var _gthis = this;
+		var _this = oBearer.getAspectByClass(oInterface);
+		var result = new Array(_this.length);
+		var _g = 0;
+		var _g1 = _this.length;
+		while(_g < _g1) {
+			var i = _g++;
+			var aspect = _this[i];
+			result[i] = { A : { battle : _gthis._oBattle, process : _gthis, aspect : aspect, bearer : oBearer}, B : aspect};
+		}
+		return result;
+	}
+	,getChance: function(f) {
+		if(f >= 1.0) {
+			return true;
+		}
+		return Math.random() < f;
+	}
+	,addAspect: function(oTarget,oAspect) {
+		oTarget.addAspect(oAspect);
+	}
+	,getCurrentStat: function(oAni,eStat) {
+		var oContext = { side : this._oBattle.getSideFromAni(oAni), subject : oAni, type : eStat, value : oAni.getStatEffective(eStat)};
+		this.trigger(animix_core_aspect_OnStatCalc,oContext);
+		return oContext.value;
+	}
+	,__class__: animix_state_BaseState
+};
+var animix_state_AniActionState = function(oBattle) {
+	this._iBlueActionPick = null;
+	this._iRedActionPick = null;
+	this._aBlueActionAr = null;
+	this._aRedActionAr = null;
+	animix_state_BaseState.call(this,oBattle);
+	this._aRedActionAr = null;
+	this._aBlueActionAr = null;
+	this._iRedActionPick = null;
+	this._iBlueActionPick = null;
+	this._aRedActionAr = this.generatePlayerAction(false);
+	this._aBlueActionAr = this.generatePlayerAction(true);
+};
+$hxClasses["animix.state.AniActionState"] = animix_state_AniActionState;
+animix_state_AniActionState.__name__ = "animix.state.AniActionState";
+animix_state_AniActionState.__super__ = animix_state_BaseState;
+animix_state_AniActionState.prototype = $extend(animix_state_BaseState.prototype,{
+	getBattle: function() {
+		return this._oBattle;
+	}
+	,setRedAction: function(i) {
+		this._iRedActionPick = i;
+	}
+	,setBlueAction: function(i) {
+		this._iRedActionPick = i;
+	}
+	,getRedActionAr: function() {
+		return this._aRedActionAr;
+	}
+	,getBlueActionAr: function() {
+		return this._aBlueActionAr;
+	}
+	,process: function() {
+		if(this._iRedActionPick == null && this._aRedActionAr.length > 1 || this._iBlueActionPick == null && this._aBlueActionAr.length > 1) {
+			throw haxe_Exception.thrown("!!!");
+		}
+		return new animix_state_AniSwitchState(this._oBattle,this._aRedActionAr[this._iRedActionPick],this._aBlueActionAr[this._iBlueActionPick]);
+	}
+	,generatePlayerAction: function(bSide) {
+		var _gthis = this;
+		var oMon = this._oBattle.getCurrentMon(bSide);
+		var aAction = [];
+		aAction.push(new animix_action_AniMoveAction(bSide,0));
+		aAction.push(new animix_action_AniMoveAction(bSide,1));
+		aAction.push(new animix_action_AniMoveAction(bSide,2));
+		aAction.push(new animix_action_AniMoveAction(bSide,3));
+		var _g = [];
+		var _g1 = 0;
+		var _g2 = aAction;
+		while(_g1 < _g2.length) {
+			var v = _g2[_g1];
+			++_g1;
+			if(v.validate(_gthis._oBattle)) {
+				_g.push(v);
+			}
+		}
+		aAction = _g;
+		if(aAction.length == 0) {
+			aAction.push(new animix_action_AniMoveAction(bSide,null));
+		}
+		aAction.concat(this.generatePlayerSwitchAction(bSide));
+		var oEvent = this.trigger(animix_core_aspect_OnActionPrompt,{ action : aAction, side : bSide});
+		return oEvent.action;
+	}
+	,generatePlayerSwitchAction: function(bSide) {
+		var _gthis = this;
+		var oCurrent = this._oBattle.getCurrentMon(bSide);
+		var oTeam = this._oBattle.getTeam(bSide);
+		var aAction = [];
+		var _g = 0;
+		var _g1 = oTeam.getMonAr().length;
+		while(_g < _g1) {
+			var i = _g++;
+			if(oCurrent != oTeam.getMon(i)) {
+				aAction.push(new animix_action_AniSwitchAction(bSide,i));
+			}
+		}
+		var _g = [];
+		var _g1 = 0;
+		var _g2 = aAction;
+		while(_g1 < _g2.length) {
+			var v = _g2[_g1];
+			++_g1;
+			if(v.validate(_gthis._oBattle)) {
+				_g.push(v);
+			}
+		}
+		return _g;
+	}
+	,__class__: animix_state_AniActionState
+});
+var animix_state_AniMoveState = function(oBattle,oActionRed,oActionBlue) {
+	animix_state_BaseState.call(this,oBattle);
+	this._oActionRed = oActionRed;
+	this._oActionBlue = oActionBlue;
+};
+$hxClasses["animix.state.AniMoveState"] = animix_state_AniMoveState;
+animix_state_AniMoveState.__name__ = "animix.state.AniMoveState";
+animix_state_AniMoveState.__super__ = animix_state_BaseState;
+animix_state_AniMoveState.prototype = $extend(animix_state_BaseState.prototype,{
+	process: function() {
+		var _gthis = this;
+		var oBattle = this._oBattle;
+		var aEvent = [];
+		if(((this._oActionRed) instanceof animix_action_AniMoveAction)) {
+			var oMove = (js_Boot.__cast(this._oActionRed , animix_action_AniMoveAction)).getMove(this._oBattle);
+			aEvent.push({ side : false, mon : oBattle.getCurrentMon(false), move_origin : oMove, move : oMove});
+		}
+		if(((this._oActionBlue) instanceof animix_action_AniMoveAction)) {
+			var oMove = (js_Boot.__cast(this._oActionBlue , animix_action_AniMoveAction)).getMove(this._oBattle);
+			aEvent.push({ side : true, mon : oBattle.getCurrentMon(true), move_origin : oMove, move : oMove});
+		}
+		var _g = 0;
+		while(_g < aEvent.length) {
+			var oEvent = aEvent[_g];
+			++_g;
+			this.trigger(animix_core_aspect_OnMoveCalc,oEvent);
+		}
+		aEvent.sort(function(a,b) {
+			var i = Reflect.compare(b.move.getPriority(),a.move.getPriority());
+			if(i == 0) {
+				return -Reflect.compare(_gthis.getCurrentStat(_gthis._oBattle.getCurrentMon(a.side),8),_gthis.getCurrentStat(_gthis._oBattle.getCurrentMon(b.side),8));
+			}
+			return i;
+		});
+		var _g = 0;
+		while(_g < aEvent.length) {
+			var oEvent = aEvent[_g];
+			++_g;
+			this.doMove(oEvent);
+		}
+		return new animix_state_TurnEndState(this._oBattle);
+	}
+	,doMove: function(oEvent) {
+		var bSide = oEvent.side;
+		var oMonAtt = oEvent.mon;
+		var oMove = oEvent.move;
+		if(oMove == null) {
+			return;
+		}
+		var oMonTarget = null;
+		switch(oMove.getTarget()) {
+		case 0:
+			oMonTarget = oMonAtt;
+			break;
+		case 1:
+			oMonTarget = this._oBattle.getCurrentMon(!bSide);
+			break;
+		default:
+			throw haxe_Exception.thrown("!!!");
+		}
+		this.trigger(animix_core_aspect_OnMove,{ side_att : bSide, turnover : false, move : oMove, defender : oMonTarget, attacker : oMonAtt});
+	}
+	,__class__: animix_state_AniMoveState
+});
+var animix_state_AniSwitchState = function(oBattle,oActionRed,oActionBlue) {
+	animix_state_BaseState.call(this,oBattle);
+	this._oActionRed = oActionRed;
+	this._oActionBlue = oActionBlue;
+};
+$hxClasses["animix.state.AniSwitchState"] = animix_state_AniSwitchState;
+animix_state_AniSwitchState.__name__ = "animix.state.AniSwitchState";
+animix_state_AniSwitchState.__super__ = animix_state_BaseState;
+animix_state_AniSwitchState.prototype = $extend(animix_state_BaseState.prototype,{
+	process: function() {
+		if(((this._oActionRed) instanceof animix_action_AniSwitchAction)) {
+			var oSwtichAction = js_Boot.__cast(this._oActionRed , animix_action_AniSwitchAction);
+			this.switchAni(false,oSwtichAction.getMonIndex());
+		}
+		if(((this._oActionBlue) instanceof animix_action_AniSwitchAction)) {
+			var oSwtichAction = js_Boot.__cast(this._oActionBlue , animix_action_AniSwitchAction);
+			this.switchAni(true,oSwtichAction.getMonIndex());
+		}
+		return new animix_state_AniMoveState(this._oBattle,this._oActionRed,this._oActionBlue);
+	}
+	,switchAni: function(bSide,iAniIndex) {
+		this.trigger(animix_core_aspect_OnSwitchOut,{ side : bSide, subject : this._oBattle.getCurrentMon(bSide)});
+		var oTeam = this._oBattle.getTeam(bSide);
+		var oAni = oTeam.getMon(iAniIndex);
+		this._oBattle.getBattleSlot(bSide).switchMon(oAni);
+		this.trigger(animix_core_aspect_OnSwitchIn,{ side : bSide, subject : oAni});
+	}
+	,__class__: animix_state_AniSwitchState
+});
+var animix_state_BattleBeginState = function(oBattle) {
+	animix_state_BaseState.call(this,oBattle);
+};
+$hxClasses["animix.state.BattleBeginState"] = animix_state_BattleBeginState;
+animix_state_BattleBeginState.__name__ = "animix.state.BattleBeginState";
+animix_state_BattleBeginState.__super__ = animix_state_BaseState;
+animix_state_BattleBeginState.prototype = $extend(animix_state_BaseState.prototype,{
+	process: function() {
+		return new animix_state_AniActionState(this._oBattle);
+	}
+	,__class__: animix_state_BattleBeginState
+});
+var animix_state_TurnEndState = function(oBattle) {
+	animix_state_BaseState.call(this,oBattle);
+};
+$hxClasses["animix.state.TurnEndState"] = animix_state_TurnEndState;
+animix_state_TurnEndState.__name__ = "animix.state.TurnEndState";
+animix_state_TurnEndState.__super__ = animix_state_BaseState;
+animix_state_TurnEndState.prototype = $extend(animix_state_BaseState.prototype,{
+	process: function() {
+		this.trigger(animix_core_aspect_OnTurnEnd,{ });
+		return new animix_state_AniActionState(this._oBattle);
+	}
+	,__class__: animix_state_TurnEndState
+});
 var animix_$client_$js_Main = function() {
 	this._oClient = new animix_$client_$js_client_Client();
-	var oForm = new animix_$client_$js_client_form_FormMatchCreation();
+	var oForm = new animix_$client_$js_client_component_page_MainPage();
 	this._oClient.renderDyna(oForm);
 };
 $hxClasses["animix_client_js.Main"] = animix_$client_$js_Main;
@@ -2016,6 +2409,49 @@ animix_$client_$js_client_form_AView.prototype = {
 	}
 	,__class__: animix_$client_$js_client_form_AView
 };
+var animix_$client_$js_client_form_IViewComposite = function() { };
+$hxClasses["animix_client_js.client.form.IViewComposite"] = animix_$client_$js_client_form_IViewComposite;
+animix_$client_$js_client_form_IViewComposite.__name__ = "animix_client_js.client.form.IViewComposite";
+animix_$client_$js_client_form_IViewComposite.__isInterface__ = true;
+animix_$client_$js_client_form_IViewComposite.__interfaces__ = [animix_$client_$js_client_form_IView];
+animix_$client_$js_client_form_IViewComposite.prototype = {
+	__class__: animix_$client_$js_client_form_IViewComposite
+};
+var animix_$client_$js_client_form_AViewComposite = function(a) {
+	animix_$client_$js_client_form_AView.call(this);
+	this._child = a;
+	var _g = 0;
+	while(_g < a.length) {
+		var el = a[_g];
+		++_g;
+		this._dom.append(el.getDomElement());
+	}
+};
+$hxClasses["animix_client_js.client.form.AViewComposite"] = animix_$client_$js_client_form_AViewComposite;
+animix_$client_$js_client_form_AViewComposite.__name__ = "animix_client_js.client.form.AViewComposite";
+animix_$client_$js_client_form_AViewComposite.__interfaces__ = [animix_$client_$js_client_form_IViewComposite];
+animix_$client_$js_client_form_AViewComposite.__super__ = animix_$client_$js_client_form_AView;
+animix_$client_$js_client_form_AViewComposite.prototype = $extend(animix_$client_$js_client_form_AView.prototype,{
+	getClientChild: function(uid) {
+		return this._dom.querySelector("[data-client-id=\"" + uid + "\"]").hxComponent;
+	}
+	,__class__: animix_$client_$js_client_form_AViewComposite
+});
+var animix_$client_$js_client_component_page_MainPage = function() {
+	this._oFormMatchCreation = new animix_$client_$js_client_form_FormMatchCreation($bind(this,this.submitMatchCreation));
+	this._oBattleWidget = null;
+	animix_$client_$js_client_form_AViewComposite.call(this,[this._oFormMatchCreation]);
+};
+$hxClasses["animix_client_js.client.component.page.MainPage"] = animix_$client_$js_client_component_page_MainPage;
+animix_$client_$js_client_component_page_MainPage.__name__ = "animix_client_js.client.component.page.MainPage";
+animix_$client_$js_client_component_page_MainPage.__super__ = animix_$client_$js_client_form_AViewComposite;
+animix_$client_$js_client_component_page_MainPage.prototype = $extend(animix_$client_$js_client_form_AViewComposite.prototype,{
+	submitMatchCreation: function(oForm) {
+		this._oBattleWidget = new animix_$client_$js_client_form_BattleWidget(this._oFormMatchCreation.getValue());
+		this._dom.append(this._oBattleWidget._dom);
+	}
+	,__class__: animix_$client_$js_client_component_page_MainPage
+});
 var animix_$client_$js_client_form_IForm = function() { };
 $hxClasses["animix_client_js.client.form.IForm"] = animix_$client_$js_client_form_IForm;
 animix_$client_$js_client_form_IForm.__name__ = "animix_client_js.client.form.IForm";
@@ -2059,33 +2495,84 @@ animix_$client_$js_client_form_AInput.prototype = $extend(animix_$client_$js_cli
 	}
 	,__class__: animix_$client_$js_client_form_AInput
 });
-var animix_$client_$js_client_form_IViewComposite = function() { };
-$hxClasses["animix_client_js.client.form.IViewComposite"] = animix_$client_$js_client_form_IViewComposite;
-animix_$client_$js_client_form_IViewComposite.__name__ = "animix_client_js.client.form.IViewComposite";
-animix_$client_$js_client_form_IViewComposite.__isInterface__ = true;
-animix_$client_$js_client_form_IViewComposite.__interfaces__ = [animix_$client_$js_client_form_IView];
-animix_$client_$js_client_form_IViewComposite.prototype = {
-	__class__: animix_$client_$js_client_form_IViewComposite
-};
-var animix_$client_$js_client_form_AViewComposite = function(a) {
+var animix_$client_$js_client_form_ActionChoiceWidget = function(oState,fn) {
+	var _gthis = this;
+	this._oState = oState;
+	this._fn = fn;
 	animix_$client_$js_client_form_AView.call(this);
-	this._child = a;
-	var _g = 0;
-	while(_g < a.length) {
-		var el = a[_g];
-		++_g;
-		this._dom.append(el.getDomElement());
+	var sMove = "";
+	var _g_current = 0;
+	var _g_array = this._oState.getRedActionAr();
+	while(_g_current < _g_array.length) {
+		var _g1_value = _g_array[_g_current];
+		var _g1_key = _g_current++;
+		var k = _g1_key;
+		var v = _g1_value;
+		if(((v) instanceof animix_action_AniMoveAction)) {
+			var oAction = v;
+			sMove += "<button type=\"button\" class=\"btn btn-primary\" data-actionbtn=\"" + k + "\">" + oAction.getMove(this._oState.getBattle()).getLabel() + "</button>";
+			continue;
+		}
 	}
+	var sSwitch = "";
+	var _g_current = 0;
+	var _g_array = this._oState.getRedActionAr();
+	while(_g_current < _g_array.length) {
+		var _g1_value = _g_array[_g_current];
+		var _g1_key = _g_current++;
+		var k = _g1_key;
+		var v = _g1_value;
+		if(((v) instanceof animix_action_AniSwitchAction)) {
+			var oAction = v;
+			sSwitch += "<button type=\"button\" class=\"btn btn-primary\" data-actionbtn=\"" + k + "\">" + "Switch to " + oAction.getAni(this._oState.getBattle()).getLabel() + "</button>";
+			continue;
+		}
+	}
+	this._dom.innerHTML = "<div class=\"row\">\r\n\t\t\t<div class=\"col\">" + sMove + "</div>\r\n\t\t\t<div class=\"col\">" + sSwitch + "</div>\r\n\t\t</div>";
+	this._dom.addEventListener("click",function(oEvent) {
+		if(!((oEvent.target) instanceof HTMLElement)) {
+			return;
+		}
+		var oElement = oEvent.target;
+		if(!oElement.hasAttribute("data-actionbtn")) {
+			return;
+		}
+		_gthis._fn(Std.parseInt(oElement.getAttribute("data-actionbtn")));
+	});
 };
-$hxClasses["animix_client_js.client.form.AViewComposite"] = animix_$client_$js_client_form_AViewComposite;
-animix_$client_$js_client_form_AViewComposite.__name__ = "animix_client_js.client.form.AViewComposite";
-animix_$client_$js_client_form_AViewComposite.__interfaces__ = [animix_$client_$js_client_form_IViewComposite];
-animix_$client_$js_client_form_AViewComposite.__super__ = animix_$client_$js_client_form_AView;
-animix_$client_$js_client_form_AViewComposite.prototype = $extend(animix_$client_$js_client_form_AView.prototype,{
-	getClientChild: function(uid) {
-		return this._dom.querySelector("[data-client-id=\"" + uid + "\"]").hxComponent;
+$hxClasses["animix_client_js.client.form.ActionChoiceWidget"] = animix_$client_$js_client_form_ActionChoiceWidget;
+animix_$client_$js_client_form_ActionChoiceWidget.__name__ = "animix_client_js.client.form.ActionChoiceWidget";
+animix_$client_$js_client_form_ActionChoiceWidget.__super__ = animix_$client_$js_client_form_AView;
+animix_$client_$js_client_form_ActionChoiceWidget.prototype = $extend(animix_$client_$js_client_form_AView.prototype,{
+	__class__: animix_$client_$js_client_form_ActionChoiceWidget
+});
+var animix_$client_$js_client_form_BattleWidget = function(oBattle) {
+	this._oState = new animix_state_BattleBeginState(oBattle);
+	animix_$client_$js_client_form_AView.call(this);
+	this._dom.innerHTML = "<div>\r\n\t\t<div class=\"row\">\r\n\t\t\t<div class=\"col\">\r\n\t\t\t\t<img />\r\n\t\t\t</div>\r\n\t\t\t<div class=\"col\">\r\n\t\t\t\t<img />\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class=\"row\">\r\n\t\t\t<div data-actionbox></div>\r\n\t\t</div>\r\n\t\t</div>";
+	this._process();
+};
+$hxClasses["animix_client_js.client.form.BattleWidget"] = animix_$client_$js_client_form_BattleWidget;
+animix_$client_$js_client_form_BattleWidget.__name__ = "animix_client_js.client.form.BattleWidget";
+animix_$client_$js_client_form_BattleWidget.__super__ = animix_$client_$js_client_form_AView;
+animix_$client_$js_client_form_BattleWidget.prototype = $extend(animix_$client_$js_client_form_AView.prototype,{
+	_process: function() {
+		var actionbox = this._dom.querySelector("[data-actionbox]");
+		this._oActionChoice = null;
+		actionbox.remove();
+		while(!((this._oState) instanceof animix_state_AniActionState)) this._oState = this._oState.process();
+		this._oActionChoice = new animix_$client_$js_client_form_ActionChoiceWidget(this._oState,$bind(this,this._chooseAction));
+		actionbox.append(this._oActionChoice._dom);
 	}
-	,__class__: animix_$client_$js_client_form_AViewComposite
+	,_chooseAction: function(i) {
+		if(!((this._oState) instanceof animix_state_AniActionState)) {
+			throw haxe_Exception.thrown("!!");
+		}
+		var oActionState = this._oState;
+		oActionState.setRedAction(i);
+		oActionState.setBlueAction(Math.floor(Math.random() * oActionState.getBlueActionAr().length));
+	}
+	,__class__: animix_$client_$js_client_form_BattleWidget
 });
 var animix_$client_$js_client_form_Layout = function(a) {
 	animix_$client_$js_client_form_AView.call(this);
@@ -2186,10 +2673,11 @@ animix_$client_$js_client_form_FormAttack.prototype = $extend(animix_$client_$js
 	}
 	,__class__: animix_$client_$js_client_form_FormAttack
 });
-var animix_$client_$js_client_form_FormMatchCreation = function() {
+var animix_$client_$js_client_form_FormMatchCreation = function(fnSubmit) {
 	animix_$client_$js_client_form_AView.call(this,"form");
+	this._fnSubmit = fnSubmit;
 	this._dom.addEventListener("submit",$bind(this,this.submit));
-	var layout = new animix_$client_$js_client_form_Layout([this.oInputTeamRed = new animix_$client_$js_client_form_FormTeamCreation("Red"),this.oInputTeamBlue = new animix_$client_$js_client_form_FormTeamCreation("Blue"),this.oInputTeamBlue = new animix_$client_$js_client_form_FormTeamCreation("Blue")]);
+	var layout = new animix_$client_$js_client_form_Layout([this.oInputTeamRed = new animix_$client_$js_client_form_FormTeamCreation("Red"),this.oInputTeamBlue = new animix_$client_$js_client_form_FormTeamCreation("Blue")]);
 	this._dom.append(layout._dom);
 	this._dom.append(new animix_$client_$js_client_form_Submit("Battle !","")._dom);
 };
@@ -2198,11 +2686,12 @@ animix_$client_$js_client_form_FormMatchCreation.__name__ = "animix_client_js.cl
 animix_$client_$js_client_form_FormMatchCreation.__interfaces__ = [animix_$client_$js_client_form_IForm];
 animix_$client_$js_client_form_FormMatchCreation.__super__ = animix_$client_$js_client_form_AView;
 animix_$client_$js_client_form_FormMatchCreation.prototype = $extend(animix_$client_$js_client_form_AView.prototype,{
-	submit: function() {
+	submit: function(oEvent) {
+		oEvent.preventDefault();
 		if(!this.validate()) {
-			return;
+			throw haxe_Exception.thrown("!!!");
 		}
-		var oBattle = this.getValue();
+		this._fnSubmit(this);
 	}
 	,validate: function() {
 		var a = [this.oInputTeamRed.validate(),this.oInputTeamBlue.validate()];
@@ -2519,64 +3008,6 @@ animix_$client_$js_client_form_Submit.prototype = $extend(animix_$client_$js_cli
 	}
 	,__class__: animix_$client_$js_client_form_Submit
 });
-var sweet_functor_IFunction = function() { };
-$hxClasses["sweet.functor.IFunction"] = sweet_functor_IFunction;
-sweet_functor_IFunction.__name__ = "sweet.functor.IFunction";
-sweet_functor_IFunction.__isInterface__ = true;
-sweet_functor_IFunction.prototype = {
-	__class__: sweet_functor_IFunction
-};
-var animix_$client_$js_tool_VPathAccessor = function(sPath) {
-	this._aPath = animix_$client_$js_tool_VPathAccessor.parsePath(sPath);
-};
-$hxClasses["animix_client_js.tool.VPathAccessor"] = animix_$client_$js_tool_VPathAccessor;
-animix_$client_$js_tool_VPathAccessor.__name__ = "animix_client_js.tool.VPathAccessor";
-animix_$client_$js_tool_VPathAccessor.__interfaces__ = [sweet_functor_IFunction];
-animix_$client_$js_tool_VPathAccessor.parsePath = function(sPath) {
-	var a = sPath.split(".");
-	var result = new Array(a.length);
-	var _g = 0;
-	var _g1 = a.length;
-	while(_g < _g1) {
-		var i = _g++;
-		var s = a[i];
-		result[i] = HxOverrides.substr(s,-2,null) == "()" ? s.substring(0,s.length - 2) : s;
-	}
-	a = result;
-	return a;
-};
-animix_$client_$js_tool_VPathAccessor.prototype = {
-	apply: function(o) {
-		var oRes = o;
-		var _g = 0;
-		var _g1 = this._aPath;
-		while(_g < _g1.length) {
-			var sPathPart = _g1[_g];
-			++_g;
-			try {
-				oRes = this.getAccess(oRes,sPathPart);
-			} catch( _g2 ) {
-				var e = haxe_Exception.caught(_g2).unwrap();
-				throw haxe_Exception.thrown("cannot access \"" + Std.string(this._aPath) + "\" because : " + Std.string(e));
-			}
-		}
-		return oRes;
-	}
-	,getAccess: function(o,sPathPart) {
-		if(o == null) {
-			throw haxe_Exception.thrown(sPathPart + " parent is null");
-		}
-		if(((o) instanceof haxe_ds_StringMap)) {
-			return (js_Boot.__cast(o , haxe_ds_StringMap)).h[sPathPart];
-		}
-		var oRes = Reflect.field(o,sPathPart);
-		if(Reflect.isFunction(oRes)) {
-			oRes = oRes.apply(o,[]);
-		}
-		return oRes;
-	}
-	,__class__: animix_$client_$js_tool_VPathAccessor
-};
 var haxe_IMap = function() { };
 $hxClasses["haxe.IMap"] = haxe_IMap;
 haxe_IMap.__name__ = "haxe.IMap";
@@ -4488,13 +4919,6 @@ mon_$calc_core_IProcess.__name__ = "mon_calc.core.IProcess";
 mon_$calc_core_IProcess.__isInterface__ = true;
 mon_$calc_core_IProcess.prototype = {
 	__class__: mon_$calc_core_IProcess
-};
-var mon_$calc_core_IState = function() { };
-$hxClasses["mon_calc.core.IState"] = mon_$calc_core_IState;
-mon_$calc_core_IState.__name__ = "mon_calc.core.IState";
-mon_$calc_core_IState.__isInterface__ = true;
-mon_$calc_core_IState.prototype = {
-	__class__: mon_$calc_core_IState
 };
 var mon_$calc_ds_EEventFilter = $hxEnums["mon_calc.ds.EEventFilter"] = { __ename__ : "mon_calc.ds.EEventFilter", __constructs__ : ["Self","Ally","Foe","Dealing","AllyReceiving","Receiving","TargetFoe","TargetOwner","WeatherRain","WeatherSunny","TerrainElectric","TargetHasStatus","TargetSleepable","TargetPoisonable","TargetGrounded","TargetAirBorn","TargetUnderground","Damage","DamagePhy","DamageMag","DamageTypeNormal","DamageTypeDark"]
 	,Self: {_hx_index:0,__enum__:"mon_calc.ds.EEventFilter",toString:$estr}
